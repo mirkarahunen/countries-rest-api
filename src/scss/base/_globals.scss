@@ -1,0 +1,57 @@
+@import "../variables";
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+main {
+    width: 100%;
+    overflow: hidden; 
+    background-color: $veryLightGray;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+img,
+svg,
+video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+button {
+    border: 2px solid transparent;
+    background-color: transparent;
+    appearance: none;
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+
+}
+
+.container {
+    padding: 0 20px;
+
+    @media(min-width: $sm) {
+        padding: 0 50px;
+    }
+}

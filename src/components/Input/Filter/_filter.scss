@@ -1,0 +1,38 @@
+@import "../../../scss/variables";
+
+.select {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px rgba($darkGray, 0.6);
+
+    .option {
+        i {
+            margin-left: 80px;
+        }
+    }
+
+    .filter-options { 
+        top: 55px;
+        background-color: $white;
+        z-index: 1;
+        border-radius: 5px;
+      }
+      
+      .filter-option {
+        padding-top: 30px;
+        cursor: pointer;
+        display: none;
+
+        &.is-open {
+            display: block;
+        }
+      
+        &:hover {
+          background-color: $veryLightGray;
+        }
+      }
+}

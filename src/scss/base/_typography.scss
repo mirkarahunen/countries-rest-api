@@ -1,0 +1,52 @@
+// typography rules and typography helper classes
+@import "../variables";
+
+body {
+    font-size: 14px;
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        color: $darkBlue;
+    }
+
+    h1 {
+        font-size: 16px;
+        line-height: 40px;
+        font-weight: 800;
+        
+ 
+    }
+
+    h2 {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    h3 {
+        font-size: 20px;
+        font-weight: 800;
+    }
+    
+
+
+    p { 
+        font-size: 15px;
+        font-weight: 300;
+    }
+
+
+    a {
+        cursor: pointer;
+        text-decoration: none;
+        
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        font-size: 13px;
+
+       
+    }
+
+}
