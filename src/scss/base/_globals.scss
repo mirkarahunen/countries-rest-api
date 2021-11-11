@@ -48,10 +48,19 @@ button {
 
 }
 
-.container {
+header,
+section {
     padding: 0 20px;
 
     @media(min-width: $sm) {
+        padding: 0 30px;
+    }
+
+    @media(min-width: $lg) {
         padding: 0 50px;
+    }
+
+    @media(min-width: $xl) {
+        padding: 0 70px;
     }
 }

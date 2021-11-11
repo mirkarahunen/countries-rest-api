@@ -1,40 +1,119 @@
 @import "../../scss/variables";
 
 .card {
-    max-width: 265px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba($color: #000000,  $alpha: 0.2);
+    box-shadow: 0 4px 8px rgba(#000000, 0.2);
     text-align: left;
-    margin-top: 20px;
-    background-color: white;
+    margin: 10px 5px 40px 5px;
+    transition: .5s ease;
+    overflow: hidden;
+    position: relative;
+
+    &:first-child {
+        margin-top: 40px;
+    }
+
+    &.rect-bg {
+        z-index: 1;
+        position: absolute;
+        top: 100%;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        background-color: rgba($darkBlue, 0.8);
+        transition: 0.5s;
+        text-align: center;
+        color: $white;
+        padding: 20px;
+
+        .read-more {
+            background-color: $white;
+            transform: translateX(-50%);
+            left: 50%;
+            padding: 20px 30px;
+            display: block;
+            position: absolute;
+            z-index: -1;
+            transition: all 0.3s ease-in;
+            border-radius: 5px;
+            box-shadow: 0 0 15px -6px $white;
+
+            &::after {
+                content: "";
+                position: absolute;  
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: 3px solid $veryDarkBlue;
+                opacity: 0;
+                z-index: -1;
+                transform: scale(1.1, 1.3);
+                transition: transform 0.3s, opacity 0.3s;
+            }
+                
+  
+            &:hover::after {
+                opacity: 1;
+                transform: scale(1, 1);
+            }
+    
+        }
+    }
+
+    &:hover {
+        box-shadow: 0 0 40px -10px hsl(209, 23%, 22%);
+        transform: translateY(-10px);
+
+        .rect-bg {
+          top: 30%;
+        }
+    }
+
+    @media (min-width: 740px) {
+        margin: 40px 5px 40px 5px;
+        
+    }
+
+    @media(min-width: $md) {
+        margin: 40px 10px 40px 10px;
+    }
+
+    @media(min-width: 800px) {
+        margin: 40px 20px 40px 20px;
+    }
+
+    @media(min-width: 1170px) {
+        margin: 40px 0;
+    }
 
     img {
-        height: 150px;
+        height: 210px;
         object-fit: cover;
-        width: 300px;
+        max-width: 330px;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
     }
 
-    h3 {
-        padding-left: 20px;
+    h2 {
+        margin: 15px 0;
+        padding-left: 30px;
     }
     
     .country-details {
-        padding: 0 20px 20px 20px;
-        max-width: 265px;
-        
+        padding: 0 30px 50px 30px;
 
-        p {
+        span {
+            display: block;
+            font-size: 16px;
+            padding: 5px 0;
+
             strong {
                 font-weight: 600;
             }
         }
     }
 
-    @media(min-width: 570px) {
-        
-        
-    }
+    
     
 }

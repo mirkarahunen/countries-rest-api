@@ -1,0 +1,60 @@
+@import "../../scss/variables";
+
+
+.filter-field {
+    position: relative;
+    margin-top: 50px;
+
+    @media(min-width: $md) {
+        margin-top: 30px;
+        margin-left: 10px;
+    }
+
+    .option,
+    .select {
+        border-radius: 5px;
+        box-shadow: 1px 1px 5px rgba($darkGray, 0.6); 
+        background-color: $white;       
+      }
+
+    .option {
+        padding: 20px 20px 20px 30px;
+
+        @media(min-width: $md) {
+            padding: 20px 10px 20px 10px;
+        }
+
+        @media(min-width: $lg) {
+            padding: 20px 20px 20px 30px;
+        }
+
+        i {
+          margin-left: 90px;
+        } 
+    }
+
+    .select {  
+        position: absolute;
+        top: 70px;
+        z-index: 2;
+        cursor: pointer;
+    } 
+
+
+    .filter-options { 
+        display: none;
+        background-color: $white;
+        z-index: 1;
+        border-radius: 5px;
+        width: 250px;
+        padding: 10px 20px 20px 30px;
+
+        &.is-open {
+            display: block;
+        }
+
+        .filter-option {
+            padding-top: 10px;
+        }
+    }      
+}

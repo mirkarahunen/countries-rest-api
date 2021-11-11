@@ -1,1 +1,21 @@
 @import "../../scss/variables";
+
+.countries {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    
+
+    @media(min-width: 740px) {
+        justify-content: space-between;
+    }
+
+    @media(min-width: $md) {
+        justify-content: center;
+    }
+
+    @media(min-width: 1170px) {
+        justify-content: space-between;
+    }
+}
