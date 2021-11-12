@@ -1,66 +1,53 @@
 import React, { useState, useContext} from 'react'
-//import "../../scss/base/_globals.scss"
-//import Input from './Input/Input'
 import './_input.scss'
-//import Filter from './Filter/Filter'
 import './_filter.scss'
 import './_search.scss'
 import { ThemeContext } from '../../Contexts/ThemeContext'
+import { CountriesContext } from '../../Contexts/CountriesContext'
 
-const Search = (props) => {
-    const { themeStyleMain, themeStyleElements, themeStyleInput } = useContext(ThemeContext)
-    const [search, setSearch] = useState("")
-    const [region, setRegion] = useState("")
-    const [searchResult, setSearchResult] = useState([])
+const Search = () => {
+    const themes = useContext(ThemeContext)
+    const countries = useContext(CountriesContext)
     const [dropdownOpen, setDropdownOpen] = useState(false)
-    const regions = ["Africa", "America", "Asia", "Europe", "Oceania"];
-    const data = props.data
-
-    const handleInput = (e) => {
-        setRegion(e.target.value);
-        setSearch(e.target.value);
+    const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
+    const data = countries.allCountryData
+    
+    const handleSelect = (e) => {
+        countries.fetchRegionData(e.target.children[0].value.toLowerCase());        
     }
 
     // Trigger dropdown menu
     const handleSelectClick = () => !dropdownOpen ? setDropdownOpen(true) : setDropdownOpen(false)   
 
     const searchCountry = (e) => {
-        setSearch(e.target.value);
-        let filtered = data.filter(country => country.name.toLowerCase().includes(search.toLowerCase()));
-        setSearchResult(filtered)
-
-        if (searchResult) {
-            
-        }
+        countries.setSearchValue(e.target.value);
+        const filtered = data.filter(country => country.name.toLowerCase().includes(countries.searchValue.toLowerCase()));
+        countries.setFilteredCountries(filtered)
     }
 
     
     return (
-        <section className="search" style={themeStyleMain}>
-            {/*<Input value={search} onChange={handleSearch}/>*/}
+        <section className="search" style={themes.themeStyleMain}>
+            {/*  ---- INPUT SEARCH ---- */}
             <div className="input">
-                {/*<i className="fas fa-search"></i>*/}
-                <input type="text" style={themeStyleInput} value={search} onChange={searchCountry} placeholder="Search for country..." />
-                
+                <i className="fas fa-search"></i>
+                <input type="text" style={themes.themeStyleInput} value={themes.setSearchValue} onChange={searchCountry} placeholder="Search for country..." />
             </div>
-            {/*<Filter value={region} onChange={handleSearch}/>*/}
-            <div className="filter-field">
-                <button className="option" onClick={handleSelectClick} type="button" style={themeStyleElements}>
+            
+            {/* ---- FILTER DROPDOWN ---- */}
+            <div className="filter">
+                <button className="option" onClick={handleSelectClick} type="button" style={themes.themeStyleInput}>
                     Filter by Region 
-                    {dropdownOpen ? <i className="fas fa-chevron-up"></i> : <i className="fas fa-chevron-down"></i>}
+                    {dropdownOpen ? <i className="fas fa-chevron-down is-open"></i> : <i className="fas fa-chevron-down"></i>}
                 </button>
-                <div className="select" tabIndex="1" value={region} >
-                    <div className={dropdownOpen ? "filter-options is-open" : "filter-options"} style={themeStyleElements}>
+                <div className="select" tabIndex="1" value={countries.region} >
+
+                    <div style={themes.themeStyleInput} className={dropdownOpen ? "filter-options is-open" : "filter-options"} >
                         {regions.map((item, i) => {
                             return (
-                                <div 
-                                    className="filter-option"
-                                    key={i}
-                                    value={item}
-                                    onClick={handleInput}
-                                >
+                                <div className="filter-option" key={i} onClick={handleSelect}>
+                                    <input hidden defaultValue={item} type="radio"/>
                                     {item}
-                                    
                                 </div>
                             )
                         })}

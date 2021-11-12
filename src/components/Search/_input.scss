@@ -4,11 +4,17 @@
 .input {
     margin-top: 30px;
     flex: 70%;
+
+    i {
+        position: absolute;
+        padding: 20px;
+        font-size: 18px;
+    }
        
     input[type=text] {
         border: none;
         letter-spacing: 1px;
-        padding: 20px;
+        padding: 20px 0 20px 70px;
         width: 100%;
         border-radius: 5px;
         box-shadow: 1px 1px 5px rgba($darkGray, 0.6);

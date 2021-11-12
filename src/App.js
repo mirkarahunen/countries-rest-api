@@ -1,51 +1,72 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.scss';
 import './scss/base/_fonts.scss'
 import './scss/base/_globals.scss'
 import './scss/_variables.scss'
 import './scss/base/_typography.scss'
 
-//import ApiProvider from './components/Contexts/ApiContext';
-//import { ApiContext } from './Contexts/ApiContext';
-
 import Header from './components/Header/Header'
-import Search from './components/Search/Search'
-import Content from './components/Content/Content'
+import Home from './components/Home/Home'
+import SingleCountryPage from './components/Content/SingleCountryPage';
+//import Search from './components/Search/Search'
+//import Content from './components/Content/Content'
 
 import { ThemeContext } from './Contexts/ThemeContext'
-import ThemeProvider from './Contexts/ThemeContext';
+import ThemeProvider from './Contexts/ThemeContext'
+
+import { CountriesContext } from './Contexts/CountriesContext';
+import CountriesProvider from './Contexts/CountriesContext';
 
 const App = () => {
-    
-    const [allCountryData, setAllCountryData] = useState([]);
-    const { theme, setTheme, themeStyleMain, themeStyleElements, themeStyleInput, themeStyleHeader, handleThemeToggle } = ThemeProvider()
-  
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('https://restcountries.com/v2/all')
-                const responseData = await response.json()
+    const { theme, changeMode, themeStyleMain, themeStyleElements, themeStyleInput, themeStyleHeader } = ThemeProvider()
+    const { allCountryData, filteredCountries, searchValue, setSearchValue, setFilteredCountries, region, setRegion, singleCountry, fetchSingleCountryData, fetchRegionData } = CountriesProvider()
+ 
+    let routes;
 
-                if(!response.ok) {
-                    throw new Error(responseData.message)
-                }
-                setAllCountryData(responseData)
-            } catch (error) {}
-        }
-        fetchData()
-        
-    }, [])
+    routes = (
+        <div className="App">
+            <Header />
+            <main style={ themeStyleMain }>        
+                <Routes>        
+                    <Route path="/" exact element={<Home />}  />
+                    <Route path="/:name" exact element={<SingleCountryPage />}/>
+                </Routes>            
+            </main>
+        </div>
+    )
+
 
     return (
-        <ThemeContext.Provider value={{theme, setTheme, themeStyleMain, themeStyleElements, themeStyleInput, themeStyleHeader, handleThemeToggle}}>
-            <div className="App">
-                <Header />
-                <main style={ themeStyleMain }>
-                    <Search data={allCountryData} />
-                    <Content items={allCountryData}/>
-                </main>
-            </div>
-        </ThemeContext.Provider>
+            <>
+            <ThemeContext.Provider 
+                value={{ 
+                theme, 
+                changeMode, 
+                themeStyleMain, 
+                themeStyleElements, 
+                themeStyleInput, 
+                themeStyleHeader 
+            }}>
+                <CountriesContext.Provider 
+                    value={{ 
+                        allCountryData, 
+                        filteredCountries, 
+                        searchValue, 
+                        setSearchValue, 
+                        setFilteredCountries, 
+                        region, 
+                        setRegion,
+                        fetchRegionData,
+                        fetchSingleCountryData,
+                        singleCountry  
+                    }}>
+                    <Router>
+                        {routes}
+                    </Router>   
+                </CountriesContext.Provider>
+            </ThemeContext.Provider>
+        </>
     );
 }
 

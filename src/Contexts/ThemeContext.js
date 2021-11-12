@@ -1,12 +1,13 @@
-import { createContext, useState} from 'react'
+import { createContext, useState, useCallback } from 'react'
 
 export const ThemeContext = createContext({
-    theme: "Light",
+    theme: "",
     setTheme: () => {},
     themeStyleMain: {},
     themeStyleElements: {},
     themeStyleInput: {}, 
-    handleThemeToggle: () => {}
+    handleThemeToggle: () => {},
+    changeMode: () => {}
 })
 
 
@@ -14,8 +15,6 @@ export const ThemeContext = createContext({
 const ThemeProvider = (props) => {
     //const {themeStyleMain, themeStyleElements, themeStyleInput, themeStyleHeader, handleThemeToggle} = useContext(ThemeContext)
     const [theme, setTheme] = useState("Light")
-   
-    
 
     const lightThemeMain = {
         color: "hsl(200, 15%, 8%)",
@@ -77,12 +76,16 @@ const ThemeProvider = (props) => {
         ...common,
         ...(theme === "Light" ? lightThemeHeader : darkThemeElements)
     }
-    
+    /*
     const handleThemeToggle = () => {
         setTheme(theme === "Light" ? "Dark" : "Light")
     }
+*/
+    const changeMode = useCallback(() => {
+        setTheme(theme === "Light" ? "Dark" : "Light")
+    }, [theme])
 
-    return {theme, setTheme, themeStyleMain, themeStyleElements, themeStyleInput, themeStyleHeader, handleThemeToggle}
+    return {theme, changeMode, themeStyleMain, themeStyleElements, themeStyleInput, themeStyleHeader}
 /*
     return (
         <ThemeContext.Provider
