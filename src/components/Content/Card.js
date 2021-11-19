@@ -1,16 +1,32 @@
 import React, { useContext } from 'react'
 import './_card.scss'
 import { ThemeContext } from '../../Contexts/ThemeContext'
-import { CountriesContext } from '../../Contexts/CountriesContext'
+//import { CountriesContext } from '../../Contexts/CountriesContext'
 
 const Card = (props) => {
     const themes = useContext(ThemeContext)
-    const {fetchSingleCountryData} = useContext(CountriesContext)
-
-    const openCountry = () => {
-        fetchSingleCountryData(props.name)
+    //const [singleCountry, setSingleCountry] = useState({});
+/*
+    const fetchSingleCountryData = async () => {
+        try {
+          const response = await fetch(`https://restcountries.com/v2/name/${props.name}`)
+          const responseData = await response.json()
+          
+          if(!response.ok) {
+            throw new Error(responseData.message)
+          }
+          setSingleCountry(responseData[0])
+           
+        } catch (error) {}
         window.location = `/${props.name}`
-    }
+      }
+*/
+    
+const fetch = () => {
+    //fetchSingleCountryData(props.name)
+    //console.log(singleCountry);
+    window.location = `/${props.name}`
+}
 
     return (
         <div className="card" style={themes.themeStyleElements} >
@@ -29,7 +45,7 @@ const Card = (props) => {
                     sed diam voluptua.
                 </p>
                 */}
-                <button className="read-more" type="button" onClick={openCountry}>
+                <button className="read-more" type="button" onClick={fetch}>
                     Read more
                 </button>
             </div>

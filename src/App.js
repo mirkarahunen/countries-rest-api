@@ -5,6 +5,7 @@ import './scss/base/_fonts.scss'
 import './scss/base/_globals.scss'
 import './scss/_variables.scss'
 import './scss/base/_typography.scss'
+import './scss/base/_buttons.scss'
 
 import Header from './components/Header/Header'
 import Home from './components/Home/Home'
@@ -20,19 +21,22 @@ import CountriesProvider from './Contexts/CountriesContext';
 
 const App = () => {
     const { theme, changeMode, themeStyleMain, themeStyleElements, themeStyleInput, themeStyleHeader } = ThemeProvider()
-    const { allCountryData, filteredCountries, searchValue, setSearchValue, setFilteredCountries, region, setRegion, singleCountry, fetchSingleCountryData, fetchRegionData } = CountriesProvider()
+    const { allCountryData, filteredCountries, searchValue, setSearchValue, setFilteredCountries, region, setRegion, fetchRegionData } = CountriesProvider()
  
     let routes;
 
     routes = (
-        <div className="App">
+        <div className="App" style={ themeStyleMain }>
             <Header />
-            <main style={ themeStyleMain }>        
-                <Routes>        
-                    <Route path="/" exact element={<Home />}  />
-                    <Route path="/:name" exact element={<SingleCountryPage />}/>
-                </Routes>            
-            </main>
+            <div className="app-container">
+                <main style={ themeStyleMain }>        
+                    <Routes>        
+                        <Route path="/" exact element={<Home />}  />
+                        <Route path="/:name" exact element={<SingleCountryPage />}/>
+                    </Routes>            
+                </main>
+            </div>
+            
         </div>
     )
 
@@ -57,9 +61,7 @@ const App = () => {
                         setFilteredCountries, 
                         region, 
                         setRegion,
-                        fetchRegionData,
-                        fetchSingleCountryData,
-                        singleCountry  
+                        fetchRegionData
                     }}>
                     <Router>
                         {routes}

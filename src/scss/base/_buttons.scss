@@ -1,0 +1,12 @@
+@import "../variables";
+
+.primary {
+
+}
+
+.secondary {
+    padding: 10px 40px;
+    box-shadow: 0 0 15px -10px rgba(black, 0.7);
+    border-radius: 5px;
+    border: 1px $veryLightGray;
+}

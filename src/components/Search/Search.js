@@ -1,4 +1,4 @@
-import React, { useState, useContext} from 'react'
+import React, { useState, useContext } from 'react'
 import './_input.scss'
 import './_filter.scss'
 import './_search.scss'
