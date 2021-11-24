@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect, useReducer } from 'react'
 import './_content.scss'
 import Card from './Card'
 import { CountriesContext } from '../../Contexts/CountriesContext'
-import InfiniteScroll from 'react-infinite-scroll-component';
+//import InfiniteScroll from 'react-infinite-scroll-component';
 
 let offset = { count: 0 } 
 
@@ -20,25 +20,27 @@ const Content = () => {
     const countries = useContext(CountriesContext)
     const [hasMore, setHasMore] = useState(true)
     const [items, setItems] = useState([])
-    const limit = 8
+    const limit = 50
     const [state, dispatch] = useReducer(reducer, offset)
     const fullLength = countries.allCountryData.length + limit
+    const [loader, setLoader] = useState(false)
 
     const fetchMoreData = () => {
-
-        let newOffset = state.count * limit
         
+        let newOffset = state.count * limit
         const nextCountries = countries.allCountryData.slice(newOffset, newOffset + limit)
         const newItems = items.concat(nextCountries)
-        
+        setLoader(true)
 
-            setTimeout(() => {
-                dispatch({ type: 'increment' })
-                setItems(newItems)
-            },2000)
+        setTimeout(() => {
+            dispatch({ type: 'increment' })
+            setItems(newItems)
+            setLoader(false)
+        }, 5000)
 
             if(items.length === fullLength) {
                 setHasMore(false)
+                setLoader(false)
             } 
             
     }
@@ -56,22 +58,20 @@ const Content = () => {
         return (
             <section className="countries-content">
                 <div className="container">
-                    <InfiniteScroll>
-                        <div className="countries">
-                            {countries.filteredCountries.map((country, i) => {
-                                return (
-                                    <Card 
-                                        name={country.name}
-                                        key={i}
-                                        capital={country.capital}
-                                        region={country.region}
-                                        population={country.population}
-                                        flag={country.flag}
-                                    />
-                                )
-                            })}
-                        </div>
-                    </InfiniteScroll>
+                    <div className="countries">
+                        {countries.filteredCountries.map((country, i) => {
+                            return (
+                                <Card 
+                                    name={country.name}
+                                    key={i}
+                                    capital={country.capital}
+                                    region={country.region}
+                                    population={country.population}
+                                    flag={country.flag}
+                                />
+                            )
+                        })}
+                    </div>
                 </div>
             </section> 
         )
@@ -80,21 +80,8 @@ const Content = () => {
         return (
             <section className="countries-content">
                 <div className="container">
-                
-                    <InfiniteScroll
-                        dataLength={items}
-                        next={fetchMoreData}
-                        hasMore={hasMore}
-                        loader={<h4 style={{ textAlign: "center" }}>Loading...</h4>}
-                        endMessage={
-                            <p style={{ textAlign: "center" }}>
-                            <b>Yay! You have seen it all</b>
-                            </p>}
-                    >
-                        <div className="countries">
-                            
+                    <div className="countries">
                         {items.map((country, i) => {
-                            
                             return (
                                 <Card 
                                     name={country.name}
@@ -106,10 +93,18 @@ const Content = () => {
                             />
                             )
                         })}
-
-                        </div>
-                    </InfiniteScroll>
-                    
+                    </div>
+                    <div className="more">
+                        <button type="button" className="more primary" onClick={fetchMoreData}>
+                            Load more
+                        </button>
+                        {loader &&
+                            <h4 style={{ textAlign: "center" }}>Loading...</h4>
+                        }
+                        {!hasMore && <h4 style={{ textAlign: "center" }}>
+                            Yay! You've seen it all
+                        </h4>}                
+                    </div>    
                 </div>
             </section> 
         )
