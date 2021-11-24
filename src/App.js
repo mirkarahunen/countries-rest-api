@@ -20,16 +20,16 @@ import { CountriesContext } from './Contexts/CountriesContext';
 import CountriesProvider from './Contexts/CountriesContext';
 
 const App = () => {
-    const { theme, changeMode, themeStyleMain, themeStyleElements, themeStyleInput, themeStyleHeader } = ThemeProvider()
+    const { theme, changeMode } = ThemeProvider()
     const { allCountryData, filteredCountries, searchValue, setSearchValue, setFilteredCountries, region, setRegion, fetchRegionData } = CountriesProvider()
  
     let routes;
 
     routes = (
-        <div className="App" style={ themeStyleMain }>
+        <div className={`App ${theme}`}>
             <Header />
             <div className="app-container">
-                <main style={ themeStyleMain }>        
+                <main className={`${theme}`}>        
                     <Routes>        
                         <Route path="/" exact element={<Home />}  />
                         <Route path="/:name" exact element={<SingleCountryPage />}/>
@@ -46,11 +46,7 @@ const App = () => {
             <ThemeContext.Provider 
                 value={{ 
                 theme, 
-                changeMode, 
-                themeStyleMain, 
-                themeStyleElements, 
-                themeStyleInput, 
-                themeStyleHeader 
+                changeMode
             }}>
                 <CountriesContext.Provider 
                     value={{ 

@@ -2,12 +2,10 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { CountriesContext } from '../../Contexts/CountriesContext'
 import './_singleCountryPage.scss'
-import { ThemeContext } from '../../Contexts/ThemeContext'
 
 
 const SingleCountryPage = () => {
     const {allCountryData} = useContext(CountriesContext)
-    const themes = useContext(ThemeContext)
     const countryName = useParams().name
     const [singleCountry, setSingleCountry] = useState([]);
     const [borderCountries, setBorderCountries] = useState([])
@@ -40,112 +38,97 @@ const SingleCountryPage = () => {
 
     return (
         <section className="single-country">
-            <button type="button" className="secondary" onClick={() => history(-1)}>
-                Back
-            </button>
-        <div className="single-country-container" style={themes.themeStyleElements} >
-            <img src={singleCountry.flag} alt="country-flag"/>
-            
-            <div className="country-details">
-                <h2>
-                    {singleCountry.name}
-                </h2>
-                <p>
-                    <strong>Native Name: </strong>
-                    {singleCountry.nativeName}
-                </p>
-                <p>
-                    <strong>Population: </strong>
-                    {singleCountry.population}
-                </p>
-                <p>
-                    <strong>Region: </strong>
-                    {singleCountry.region}
-                </p>
-                <p>
-                    <strong>Subregion: </strong>
-                    {singleCountry.subregion}
-                </p>
-                <p>
-                    <strong>Capital: </strong>
-                    {singleCountry.capital}
-                </p>
-                <p>
-                    <strong>Top Level Domain: </strong>
-                    {singleCountry.subregion}
-                </p>
-                
-                <p>
-                    <strong>Languages: </strong>
-                    {singleCountry.subregion}
-                </p>
-                <div className="border-countries">
-                    <p>
-                        <strong>Border countries: </strong>
-                    </p>
-                    
-                    {borderCountries ? borderCountries.map((country, i) => {
-                        const filteredCountry = getBorderCountryName(allCountryData, country)
-                        return (
-                            <button className="secondary" type="button" key={i} onClick={() => window.location = `/${filteredCountry.name}`}>
-                                {filteredCountry.name}
-                            </button>
-                        )
-                    }) : "No border countries"}
+            <div className="single-country-container">
+                <div className="back-button-container">
+                    <button type="button" className="back primary" onClick={() => history(-1)}>
+                        <i className="fas fa-arrow-left"></i>
+                        Back
+                    </button>
                 </div>
+                
+                <div className="img-container">
+                    <img src={singleCountry.flag} alt="country-flag"/>
+                </div>
+            
+                <div className="country-details">            
+                    <h1>
+                        {singleCountry.name}
+                    </h1>
+                    <div className="country-details-wrapper">
+                        <div className="main-info">
+                            <p>
+                                <strong>Native Name: </strong>
+                                {singleCountry.nativeName ? singleCountry.nativeName : "No Native Name Given"}
+                            </p>
+                            <p>
+                                <strong>Population: </strong>
+                                {singleCountry.population ? singleCountry.population : "No Population Given"}
+                            </p>
+                            <p>
+                                <strong>Region: </strong>
+                                {singleCountry.region ? singleCountry.region : "No Region Given"}
+                            </p>
+                            <p>
+                                <strong>Sub Region: </strong>
+                                {singleCountry.subregion ? singleCountry.subregion : "No Sub Region Given"}
+                            </p>
+                            <p>
+                                <strong>Capital: </strong>
+                                {singleCountry.capital ? singleCountry.capital : "No Capital"}
+                            </p>
+                        </div>
+                        <div className="extra-info">
+                            <p>
+                                <strong>Top Level Domain: </strong>
+                                {singleCountry.topLevelDomain && singleCountry.topLevelDomain.map((item, i) => {
+                                    return (
+                                        <span key={i}>
+                                            {item ? item : "No Top Level Domain Given"}
+                                        </span>
+                                    )
+                                })}
+                            </p>
+                            <p>
+                                <strong>Currencies: </strong>
+                                {singleCountry.currencies && singleCountry.currencies.map((item, i) => {
+                                    return (
+                                        <span key={i}>
+                                            {item.name ? item.name : "No Currencies Given"}
+                                        </span>
+                                    )
+                                })}
+                            </p>
+                            <p>
+                                <strong>Languages: </strong>
+                                {singleCountry.languages && singleCountry.languages.map((item, i) => {
+                                    return (
+                                        <span key={i}>
+                                            {item.name ? item.name : "No Languages Given"}
+                                        </span>
+                                    )
+                                })}
+                            </p>
+                        </div>
+                    </div>
+                    <div className="border-countries">
+                        <p>
+                            <strong>Border countries: </strong>
+                        </p>
+                        <div className="border-buttons">
+                            {borderCountries ? borderCountries.map((country, i) => {
+                                const filteredCountry = getBorderCountryName(allCountryData, country)
+                                    return (
+                                        <button className="border secondary" type="button" key={i} onClick={() => window.location = `/${filteredCountry.name}`}>
+                                            {filteredCountry.name}
+                                        </button>
+                                    )
+                                }) : "No border countries"}
+                        </div>
+                    </div>    
+                </div>    
             </div>
-        </div>
         </section>
     )
-
 }
 
 export default SingleCountryPage
-/*
-import './_single-country-content.scss'
-import InfiniteScroll from 'react-infinite-scroll-component';
-
-const SingleCountryContent = (props) => {
-    const [hasMore, setHasMore] = useState(true)
-    //const [items, setItems] = useState([])
-    
-
-    useEffect(() => {
-        setItems(props.items.slice(0,8))
-    }, [props.items])
-   
-
-    const fetchMoreData = () => {
-        if (props.items.length > 250) setHasMore(false)
-
-        //console.log(items.length, ...items + props.items.slice(0,8));
-        //setItems(...items, props.items.slice(0,8))
-        
-        //setItems(items.concat(props.items))
-        
-    }
-
-
-
-    return (
-        
-            <InfiniteScroll
-                dataLength={props.items.length}
-                next={fetchMoreData}
-                hasMore={hasMore}
-                loader={<h4>Loading...</h4>}
-                endMessage={
-                    <p style={{ textAlign: "center" }}>
-                        <b>Yay! You have seen it all</b>
-                    </p>
-                }
-            >
-                
-            </InfiniteScroll>
-        
-    )
-
-}
-
-export default SingleCountryContent;
-*/

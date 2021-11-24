@@ -1,21 +1,30 @@
 @import "../../scss/variables";
 
-.countries {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+.infinite-scroll-component {
+    overflow: visible;
     
-
-    @media(min-width: 740px) {
-        justify-content: space-between;
-    }
-
-    @media(min-width: $md) {
+    .countries {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
         justify-content: center;
-    }
 
-    @media(min-width: 1170px) {
-        justify-content: space-between;
+        @media(min-width: 600px) {
+            margin-top: 30px;
+        }
+        
+        @media(min-width: $sm) {
+            justify-content: space-around;
+        }
+
+        @media(min-width: 740px) {
+            margin-top: 0;
+        }
+        
+        @media(min-width: $lg) {
+            justify-content: space-between;
+            margin-top: 10px;
+        }
     }
 }
+

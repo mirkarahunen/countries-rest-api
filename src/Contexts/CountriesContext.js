@@ -14,7 +14,7 @@ export const CountriesContext = createContext({
   setSingleCountry: () => {}
 })
 
-const CountriesProvider = (props) => {
+const CountriesProvider = () => {
     // Stores all API data to be used in an array
     const [allCountryData, setAllCountryData] = useState([]);
 
@@ -23,9 +23,6 @@ const CountriesProvider = (props) => {
 
     // Displayed list of countries in CountryList component
     const [filteredCountries, setFilteredCountries] = useState([]);
-
-    // Country shown on Single Country Page
-    
 
     // Values for search user controls
     const [searchValue, setSearchValue] = useState("");

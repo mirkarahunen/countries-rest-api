@@ -1,24 +1,35 @@
 @import "../../scss/variables";
 
 header {
-    
+    box-shadow: 0 10px 10px -10px rgba($color: $darkGray, $alpha: 0.2);
+    position: relative;
 
     nav {
-        padding-top: 15px;
-        padding-bottom: 15px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         max-width: 1440px;
         margin: 0 auto;
-        box-shadow: 0 10px 10px -10px rgba($color: $darkGray, $alpha: 0.6);
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+        @media(min-width: $md) {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
 
         .mode {
             display: flex;
             align-items: center;
+            padding-right: 0;
 
             i {
-                margin-right: 15px;
+                margin-right: 8px;
+
+                @media(min-width: $md) {
+                    margin-right: 12px;
+                }
+                
             }
         }
     }

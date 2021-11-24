@@ -19,6 +19,8 @@ main {
     width: 100%;
     overflow: hidden; 
     background-color: $veryLightGray;
+    color: $veryDarkBlueText;
+    
 }
 
 ul {
@@ -45,22 +47,100 @@ button {
     &:focus {
         outline: none;
     }
+}
 
+input:focus {
+    outline: none;
 }
 
 nav,
 section {
-    padding: 0 20px;
+    padding: 0 15px;
 
-    @media(min-width: $sm) {
+    @media(min-width: 500px) {
         padding: 0 30px;
     }
 
-    @media(min-width: $lg) {
+    @media(min-width: $sm) {
         padding: 0 50px;
     }
 
-    @media(min-width: $xl) {
-        padding: 0 70px;
+    @media(min-width: $lg) {
+        padding: 0 60px;
     }
+
+    @media(min-width: $xl) {
+        padding: 0 80px;
+    }
+}
+
+.Light {
+    background-color: $veryLightGray;
+    color: $veryDarkBlueText;
+    transition: all .5s ease;
+
+    .header {
+        background-color: $white;
+    }
+
+    input {
+        color: $darkGray;
+    }
+
+    .option,
+    .select,
+    input {
+        box-shadow: 1px 1px 5px rgba($darkGray, 0.6);
+    }
+
+    .option,
+    .select,
+    input,
+    .filter-options {
+        background-color: $white;
+    }
+
+    .mode {
+        color: $veryDarkBlueText;
+        background-color: $white;   
+    }
+
+    i {
+        color: $darkGray;
+    }
+
+    .card {
+        background-color: $white;
+    }
+}
+
+.Dark {
+    color: $white;
+    background-color: $veryDarkBlue;
+    transition: all .5s ease;
+
+    input,
+    .option,
+    .filter-options,
+    .select,
+    i {
+        color: $white;
+        box-shadow: none;
+        background-color: $darkBlue
+    }
+
+    .header {
+        background-color: $darkBlue;
+    }
+
+    button {
+        background-color: $darkBlue;
+        color: $white;
+    }
+
+    .card {
+        color: $white;
+        background-color: $darkBlue;
+    }
+
 }

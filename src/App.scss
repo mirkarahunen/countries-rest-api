@@ -1,8 +1,15 @@
 @import "./scss/variables";
 
-.app-container {
-    max-width: 1440px;
-    margin: 0 auto; 
-    box-sizing: border-box;
-    overflow: hidden;
+.App {
+    color: $veryDarkBlueText;
+    background-color: $veryLightGray;
+    height: 100vh;
+
+    .app-container {
+        max-width: 1440px;
+        margin: 0 auto; 
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    
 }

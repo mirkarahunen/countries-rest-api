@@ -9,7 +9,7 @@ let offset = { count: 0 }
 const reducer = (state, action) => {
     switch (action.type) {
       case 'increment':
-        return {count: state.count + 1};
+        return { count: state.count + 1 }
       default:
           return state
         //throw new Error();
@@ -20,27 +20,28 @@ const Content = () => {
     const countries = useContext(CountriesContext)
     const [hasMore, setHasMore] = useState(true)
     const [items, setItems] = useState([])
-    const limit = 10
+    const limit = 8
     const [state, dispatch] = useReducer(reducer, offset)
-    
-    
+    const fullLength = countries.allCountryData.length + limit
+
     const fetchMoreData = () => {
-  
-       if(items.length === countries.allCountryData.length) {
-           setHasMore(true)
-       } 
 
         let newOffset = state.count * limit
+        
         const nextCountries = countries.allCountryData.slice(newOffset, newOffset + limit)
         const newItems = items.concat(nextCountries)
+        
 
             setTimeout(() => {
                 dispatch({ type: 'increment' })
                 setItems(newItems)
             },2000)
-    
+
+            if(items.length === fullLength) {
+                setHasMore(false)
+            } 
+            
     }
-console.log(items);
      
     useEffect(() => {
         const list = () => {
@@ -55,21 +56,22 @@ console.log(items);
         return (
             <section className="countries-content">
                 <div className="container">
-                    <div className="countries">
-                        {countries.filteredCountries.map((country, i) => {
-                            return (
-                                <Card 
-                                name={country.name}
-                                key={i}
-                                capital={country.capital}
-                                region={country.region}
-                                population={country.population}
-                                flag={country.flag}
-                            />
-                            )
-                        })}
-
-                    </div>
+                    <InfiniteScroll>
+                        <div className="countries">
+                            {countries.filteredCountries.map((country, i) => {
+                                return (
+                                    <Card 
+                                        name={country.name}
+                                        key={i}
+                                        capital={country.capital}
+                                        region={country.region}
+                                        population={country.population}
+                                        flag={country.flag}
+                                    />
+                                )
+                            })}
+                        </div>
+                    </InfiniteScroll>
                 </div>
             </section> 
         )
@@ -83,7 +85,7 @@ console.log(items);
                         dataLength={items}
                         next={fetchMoreData}
                         hasMore={hasMore}
-                        loader={<h4>Loading...</h4>}
+                        loader={<h4 style={{ textAlign: "center" }}>Loading...</h4>}
                         endMessage={
                             <p style={{ textAlign: "center" }}>
                             <b>Yay! You have seen it all</b>

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import './_input.scss'
-import './_filter.scss'
+import './_dropdown.scss'
 import './_search.scss'
 import { ThemeContext } from '../../Contexts/ThemeContext'
 import { CountriesContext } from '../../Contexts/CountriesContext'
@@ -13,7 +13,8 @@ const Search = () => {
     const data = countries.allCountryData
     
     const handleSelect = (e) => {
-        countries.fetchRegionData(e.target.children[0].value.toLowerCase());        
+        const data = e.target.value
+        countries.fetchRegionData(data.toLowerCase());        
     }
 
     // Trigger dropdown menu
@@ -27,27 +28,27 @@ const Search = () => {
 
     
     return (
-        <section className="search" style={themes.themeStyleMain}>
+        <section className={`search ${themes.theme}`}>
             {/*  ---- INPUT SEARCH ---- */}
             <div className="input">
-                <i className="fas fa-search"></i>
-                <input type="text" style={themes.themeStyleInput} value={themes.setSearchValue} onChange={searchCountry} placeholder="Search for country..." />
+                <i className={`fas fa-search ${themes.theme}`}></i>
+                <input className={`${themes.theme}`} type="text" value={themes.setSearchValue} onChange={searchCountry} placeholder="Search for country..." />
             </div>
             
             {/* ---- FILTER DROPDOWN ---- */}
             <div className="filter">
-                <button className="option" onClick={handleSelectClick} type="button" style={themes.themeStyleInput}>
+                <button onClick={handleSelectClick} type="button" className={`option ${themes.theme}`}>
                     Filter by Region 
                     {dropdownOpen ? <i className="fas fa-chevron-down is-open"></i> : <i className="fas fa-chevron-down"></i>}
                 </button>
                 <div className="select" tabIndex="1" value={countries.region} >
 
-                    <div style={themes.themeStyleInput} className={dropdownOpen ? "filter-options is-open" : "filter-options"} >
+                    <div className={dropdownOpen ? `filter-options is-open ${themes.theme}` : `filter-options ${themes.theme}`} >
                         {regions.map((item, i) => {
                             return (
                                 <div className="filter-option" key={i} onClick={handleSelect}>
-                                    <input hidden defaultValue={item} type="radio"/>
-                                    {item}
+                                   
+                                    <input value={item} name={item} type="text" disabled/>
                                 </div>
                             )
                         })}

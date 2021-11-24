@@ -8,16 +8,16 @@ const Header = () => {
    const themes = useContext(ThemeContext)
 
     return (
-        <header style={themes.themeStyleHeader}>
+        <header className={`header ${themes.theme}`}>
             <nav>
-                <h1>
+                <h2>
                     Where in the world?
-                </h1>
-                <button className="mode" onClick={themes.changeMode} style={themes.themeStyleHeader}>
+                </h2>
+                <button className={`mode ${themes.theme}`} onClick={themes.changeMode}>
                     {themes.theme === "Light" ? <i className="far fa-moon"></i> : <i className="fas fa-moon"></i>}
-                    <h4>
+                    <h5>
                         {themes.theme === "Light" ? "Dark" : "Light"} Mode
-                    </h4>            
+                    </h5>            
                 </button>
             </nav>
         </header>

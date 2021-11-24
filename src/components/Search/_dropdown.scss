@@ -1,0 +1,92 @@
+@import "../../scss/variables";
+
+
+.filter {
+    position: relative;
+    margin-top: 35px;
+    width: 200px;
+
+    @media(min-width: $md) {
+        margin-top: 0;
+        margin-left: 10px;
+    }
+
+    .option,
+    .select {
+        border-radius: 5px; 
+    }
+
+    .option {
+        width: 100%;
+        padding: 15px 15px 15px 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: none;
+
+        @media(min-width: $md) {
+            padding: 20px;
+        }
+
+        i {
+          transform: rotateY(0deg) translateY(0);
+          transition: transform .5s ease;
+          font-size: 10px;
+
+          &.is-open {
+            transform: rotateX(180deg) translateY(0);
+            
+          }
+        } 
+    }
+
+    .select {  
+        position: absolute;
+        top: 55px;
+        z-index: 2;
+        cursor: pointer;
+        width: 100%;
+
+        @media(min-width: $md) {
+            top: 60px;
+        }
+    } 
+
+
+    .filter-options { 
+        
+        display: none;
+        z-index: 1;
+        border-radius: 5px;
+        padding: 10px 0;
+
+        &.is-open {
+            display: block;
+        }
+
+        .filter-option {
+            
+            padding: 0 0 5px 25px;
+            
+            @media(min-width: $md) {
+                padding: 5px 0 5px 25px;
+            }
+            
+            input[type=text] {
+                border: none;
+                background-color: transparent;
+                box-shadow: none;
+                font-size: 12px;
+                cursor: pointer;
+
+                @media(min-width: $md) {
+                    font-size: 14px;
+                }
+            }
+
+            &:hover {
+                background-color: #ccc
+            }
+        }
+    }      
+}
