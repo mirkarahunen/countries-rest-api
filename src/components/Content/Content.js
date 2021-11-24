@@ -20,7 +20,7 @@ const Content = () => {
     const countries = useContext(CountriesContext)
     const [hasMore, setHasMore] = useState(true)
     const [items, setItems] = useState([])
-    const limit = 50
+    const limit = 12
     const [state, dispatch] = useReducer(reducer, offset)
     const fullLength = countries.allCountryData.length + limit
     const [loader, setLoader] = useState(false)
@@ -36,7 +36,7 @@ const Content = () => {
             dispatch({ type: 'increment' })
             setItems(newItems)
             setLoader(false)
-        }, 5000)
+        }, 2000)
 
             if(items.length === fullLength) {
                 setHasMore(false)
