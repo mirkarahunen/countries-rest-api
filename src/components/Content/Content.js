@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, useReducer } from 'react'
 import './_content.scss'
 import Card from './Card'
 import { CountriesContext } from '../../Contexts/CountriesContext'
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
 //import InfiniteScroll from 'react-infinite-scroll-component';
 
 let offset = { count: 0 } 
@@ -94,13 +95,13 @@ const Content = () => {
                             )
                         })}
                     </div>
-                    <div className="more">
-                        <button type="button" className="more primary" onClick={fetchMoreData}>
-                            Load more
-                        </button>
-                        {loader &&
-                            <h4 style={{ textAlign: "center" }}>Loading...</h4>
-                        }
+                    <div className="more"> 
+                        {!loader ? 
+                            <button type="button" className="more primary" onClick={fetchMoreData}>
+                                Load more
+                            </button> 
+                        : 
+                            <LoadingSpinner/>}
                         {!hasMore && <h4 style={{ textAlign: "center" }}>
                             Yay! You've seen it all
                         </h4>}                

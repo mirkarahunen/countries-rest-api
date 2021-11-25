@@ -107,10 +107,17 @@ section {
 
     i {
         color: $darkGray;
+
+        
     }
 
     .card {
         background-color: $white;
+    }
+
+    .spinner::after {
+        border: 5px solid $darkBlue;
+        border-color: $darkBlue transparent $darkBlue transparent;
     }
 }
 
@@ -129,6 +136,7 @@ section {
         background-color: $darkBlue
     }
 
+
     .header {
         background-color: $darkBlue;
     }
@@ -141,6 +149,11 @@ section {
     .card {
         color: $white;
         background-color: $darkBlue;
+    }
+
+    .spinner::after {
+        border: 5px solid $white;
+        border-color: $white transparent $white transparent;
     }
 
 }
