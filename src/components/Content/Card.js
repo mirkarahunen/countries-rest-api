@@ -1,12 +1,14 @@
 import React, { useContext } from 'react'
+import { useNavigate } from 'react-router'
 import './_card.scss'
 import { ThemeContext } from '../../Contexts/ThemeContext'
 
 const Card = (props) => {
     const themes = useContext(ThemeContext)
+    const navigate = useNavigate()
 
     const goToCountry = () => {
-        window.location = `/${props.name}`
+        navigate(`/${props.name}`)
     }
 
     return (
