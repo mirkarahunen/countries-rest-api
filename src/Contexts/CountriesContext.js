@@ -27,6 +27,8 @@ const CountriesProvider = () => {
     // Values for search user controls
     const [searchValue, setSearchValue] = useState("");
 
+    
+
 
     const fetchRegionData = async (value) => {
       try {
@@ -37,6 +39,7 @@ const CountriesProvider = () => {
           throw new Error(responseData.message)
         }
         setFilteredCountries(responseData)
+        
       } catch (error) {}
     }
 
@@ -51,7 +54,7 @@ const CountriesProvider = () => {
                   throw new Error(responseData.message)
               }
               setAllCountryData(responseData)
-
+              sessionStorage.setItem("countries", JSON.stringify(responseData.slice(0, 12)))
           } catch (error) {}
       }
       fetchAllData()

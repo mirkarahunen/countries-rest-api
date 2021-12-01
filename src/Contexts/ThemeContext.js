@@ -27,10 +27,6 @@ const ThemeProvider = () => {
 
     useEffect(() => {
         setLocalItem(item, theme) 
-        
-        //return() => {
-            //localStorage.removeItem("theme")
-        //}
     }, [savedItem, theme])
 
     return { theme, changeMode }

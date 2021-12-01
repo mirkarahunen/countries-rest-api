@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import './App.scss';
 import './scss/base/_fonts.scss'
 import './scss/base/_globals.scss'
@@ -51,7 +51,7 @@ const App = () => {
                         setRegion,
                         fetchRegionData
                     }}>
-                    <Router>
+                    <Router basename="/">
                         <div className={`App ${theme}`}>
                             <Header />
                             <div className="app-container">

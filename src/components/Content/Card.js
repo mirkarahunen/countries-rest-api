@@ -13,7 +13,10 @@ const Card = (props) => {
 
     return (
         <div className={`card ${themes.theme}`} onClick={goToCountry}>
-            <img src={props.flag} alt="country-flag"/>
+            <div className="img-container">
+                <img src={props.flag} alt="country-flag"/>
+            </div>
+
             <h4>{props.name}</h4>
             <div className="country-details">
                 <span><strong>Population: </strong>{props.population ? props.population : "0"}</span>

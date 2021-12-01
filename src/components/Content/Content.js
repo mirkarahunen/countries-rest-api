@@ -1,65 +1,74 @@
-import React, { useContext, useState, useEffect, useReducer } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import './_content.scss'
 import Card from './Card'
 import { CountriesContext } from '../../Contexts/CountriesContext'
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
-//import InfiniteScroll from 'react-infinite-scroll-component';
 
-let offset = { count: 0 } 
 
-const reducer = (state, action) => {
-    switch (action.type) {
-      case 'increment':
-        return { count: state.count + 1 }
-      default:
-          return state
-        //throw new Error();
-    }
-  } 
 
 const Content = () => {
     const countries = useContext(CountriesContext)
     const [hasMore, setHasMore] = useState(true)
-    const [items, setItems] = useState([])
     const limit = 12
-    const [state, dispatch] = useReducer(reducer, offset)
-    const fullLength = countries.allCountryData.length + limit
+
+    const getStorage = (key, value) => {
+        let storedCountries = sessionStorage.getItem(key)
+        
+        if(!storedCountries) {
+            //console.log(value);
+            return value
+        } else {
+            //console.log(storedCountries);
+            return JSON.parse(storedCountries)
+        }
+    }
+
+    let count = 0
+    let startOffset = sessionStorage.getItem("counter")
+    const [offset, setOffset] = useState(() => {
+        return startOffset ? parseInt(startOffset) : count
+    })
+
+    const fullLength = countries.allCountryData.length
     const [loader, setLoader] = useState(false)
+   
+    const [items, setItems] = useState([])
 
     const fetchMoreData = () => {
         
-        let newOffset = state.count * limit
+        const offsetToNumber = parseInt(offset) + 1
+        setOffset(offsetToNumber)
+
+        let newOffset = offsetToNumber * limit
+
         const nextCountries = countries.allCountryData.slice(newOffset, newOffset + limit)
         const newItems = items.concat(nextCountries)
+        
         setLoader(true)
 
         setTimeout(() => {
-            dispatch({ type: 'increment' })
             setItems(newItems)
             setLoader(false)
+            sessionStorage.setItem("countries", JSON.stringify(newItems))
         }, 2000)
 
-            if(items.length === fullLength) {
-                setHasMore(false)
-                setLoader(false)
-            } 
-            
+        if(items.length === fullLength) {
+            setHasMore(false)
+            setLoader(false)
+        }       
     }
-     
-    useEffect(() => {
-        const list = () => {
-            setItems(countries.allCountryData.splice(0, limit))
-      }
-      list()
 
-    }, [countries.allCountryData])
-    
+    useEffect(() => {
+        sessionStorage.setItem("counter", JSON.stringify(offset))
+        setItems(getStorage("countries"))
+    }, [offset, countries.allCountryData])
+
 
     if(countries.filteredCountries.length > 0) {
         return (
             <section className="countries-content">
                 <div className="container">
-                    <div className="countries">
+                    <div className="countries filtered">
                         {countries.filteredCountries.map((country, i) => {
                             return (
                                 <Card 
@@ -82,7 +91,7 @@ const Content = () => {
             <section className="countries-content">
                 <div className="container">
                     <div className="countries">
-                        {items.map((country, i) => {
+                        {items && items.map((country, i) => {
                             return (
                                 <Card 
                                     name={country.name}

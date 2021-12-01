@@ -9,21 +9,27 @@ const Search = () => {
     const themes = useContext(ThemeContext)
     const countries = useContext(CountriesContext)
     const [dropdownOpen, setDropdownOpen] = useState(false)
-    const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
+    const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania", "All"];
     const data = countries.allCountryData
     
+  
     const handleSelect = (e) => {
         const data = e.target.value
-        countries.fetchRegionData(data.toLowerCase());        
+        countries.fetchRegionData(data.toLowerCase());
+        document.querySelector(".option").innerHTML = data
+        setDropdownOpen(false)
+        document.querySelector(".input input").value = ""
     }
 
+   
     // Trigger dropdown menu
-    const handleSelectClick = () => !dropdownOpen ? setDropdownOpen(true) : setDropdownOpen(false)   
+    const handleSelectClick = () => !dropdownOpen ? setDropdownOpen(true) : setDropdownOpen(false)
 
     const searchCountry = (e) => {
         countries.setSearchValue(e.target.value);
         const filtered = data.filter(country => country.name.toLowerCase().includes(countries.searchValue.toLowerCase()));
         countries.setFilteredCountries(filtered)
+        if(e.target.value === "") return countries.setFilteredCountries(0)
     }
 
     
@@ -38,7 +44,7 @@ const Search = () => {
             {/* ---- FILTER DROPDOWN ---- */}
             <div className="filter">
                 <button onClick={handleSelectClick} type="button" className={`option ${themes.theme}`}>
-                    Filter by Region 
+                    {"Filter by Region"} 
                     {dropdownOpen ? <i className="fas fa-chevron-down is-open"></i> : <i className="fas fa-chevron-down"></i>}
                 </button>
                 <div className="select" tabIndex="1" value={countries.region} >
@@ -47,7 +53,6 @@ const Search = () => {
                         {regions.map((item, i) => {
                             return (
                                 <div className="filter-option" key={i} onClick={handleSelect}>
-                                   
                                     <input value={item} name={item} type="text" disabled/>
                                 </div>
                             )

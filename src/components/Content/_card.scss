@@ -53,13 +53,19 @@
         margin: 35px 0;
     }
 
-    img {
+    .img-container {
         height: 160px;
-        object-fit: cover;
         width: 260px;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
         border-bottom: 1px solid rgba(#000000, .1);
+        overflow: hidden;
+
+        img {
+            width: 260px;
+            height: 160px;
+            object-fit: fill;
+        }
     }
 
     h4 {
