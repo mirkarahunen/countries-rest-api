@@ -21,17 +21,13 @@ const App = () => {
     const { theme, changeMode } = ThemeProvider()
     const { allCountryData, filteredCountries, searchValue, setSearchValue, setFilteredCountries, region, setRegion, fetchRegionData } = CountriesProvider()
  
-    
-
     const routes = (
            
         <Routes>        
             <Route path="/" exact element={<Home />}  />
             <Route path="/:name" exact element={<SingleCountryPage />}/>
         </Routes>            
-  
     )
-
 
     return (
             <>

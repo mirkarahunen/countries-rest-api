@@ -64,7 +64,6 @@ const CountriesProvider = () => {
     return { allCountryData, filteredCountries, searchValue, 
             setSearchValue, setFilteredCountries, region, setRegion, 
             fetchRegionData }
-
   }
 
   export default CountriesProvider

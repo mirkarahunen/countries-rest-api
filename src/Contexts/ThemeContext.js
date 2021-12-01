@@ -12,11 +12,9 @@ const ThemeProvider = () => {
     const item = "theme"
     const savedItem = localStorage.getItem("theme")
     const [theme, setTheme] = useState(() => {
-        
         return savedItem ? JSON.parse(savedItem) : "Light";
     })
     
-
     const setLocalItem = (theme, value) => {
         localStorage.setItem(theme, JSON.stringify(value))
     }
