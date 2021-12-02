@@ -11,12 +11,12 @@ const Search = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania", "All"];
     const data = countries.allCountryData
-    
+    const [buttonText, setButtonText] = useState("")
   
     const handleSelect = (e) => {
         const data = e.target.value
         countries.fetchRegionData(data.toLowerCase());
-        document.querySelector(".option").innerHTML = data
+        setButtonText(data)
         setDropdownOpen(false)
         document.querySelector(".input input").value = ""
     }
@@ -44,7 +44,7 @@ const Search = () => {
             {/* ---- FILTER DROPDOWN ---- */}
             <div className="filter">
                 <button onClick={handleSelectClick} type="button" className={`option ${themes.theme}`}>
-                    {"Filter by Region"} 
+                    {buttonText ? buttonText : "Filter by Region"} 
                     {dropdownOpen ? <i className="fas fa-chevron-down is-open"></i> : <i className="fas fa-chevron-down"></i>}
                 </button>
                 <div className="select" tabIndex="1" value={countries.region} >

@@ -4,53 +4,41 @@
     padding-bottom: 150px;
     
     
-    .countries,
-    .filtered {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
+    .countries {
+        //display: flex;
+        //flex-wrap: wrap;
+        //align-items: center;
+        //justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 25%));
+        justify-items: center;
+        justify-content: space-around;
         
-
         @media(min-width: 600px) {
             margin-top: 30px;
         }
         
-        @media(min-width: $sm) {
-            justify-content: space-around;
-        }
-
+        /*
         @media(min-width: 740px) {
+            //margin: 0 ;
+            //margin: 0 -5px;
+        }
+
+        @media(min-width: 1160px) {
+            //justify-content: left;
+        }
+
+        @media(min-width: 1244px) {
             margin-top: 0;
+            margin: 0 -7px;
+            //justify-content: left;
         }
         
-        @media(min-width: $lg) {
-            justify-content: space-between;
-            margin-top: 10px;
+        @media(min-width: $xxl) {
+            //margin: 10px -40px;
+            //margin-top: 10px;
         }
-    }
-
-    .filtered {
-
-        @media(min-width: $md) {
-            justify-content: left;
-        }
-        
-        @media(min-width: $lg) {
-            justify-content: left;
-            margin: 10px 30px 10px 30px;
-            
-            &:first-child {
-                margin-left: 0;
-            }
-        }
-
-        .card {
-
-            @media(min-width: $lg) {
-                margin-right: 30px;
-            }            
-        }
+        */
     }
 
     .more {
