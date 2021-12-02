@@ -3,7 +3,6 @@
 .countries-content {
     padding-bottom: 150px;
     
-    
     .countries {
         //display: flex;
         //flex-wrap: wrap;
@@ -18,27 +17,10 @@
             margin-top: 30px;
         }
         
-        /*
-        @media(min-width: 740px) {
-            //margin: 0 ;
-            //margin: 0 -5px;
-        }
-
-        @media(min-width: 1160px) {
-            //justify-content: left;
-        }
-
-        @media(min-width: 1244px) {
-            margin-top: 0;
-            margin: 0 -7px;
-            //justify-content: left;
+        &.filtered {
+            justify-content: left;
         }
         
-        @media(min-width: $xxl) {
-            //margin: 10px -40px;
-            //margin-top: 10px;
-        }
-        */
     }
 
     .more {

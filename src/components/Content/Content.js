@@ -68,9 +68,9 @@ const Content = () => {
         return (
             <section className="countries-content">
                 <div className="container">
-                    <div className="countries">
+                    <div className={countries.filteredCountries.length <= 2 ? "countries filtered" : "countries"}>
                         {countries.filteredCountries.map((country, i) => {
-                        
+                            
                             return (
                                 <Card 
                                     name={country.name}
@@ -79,7 +79,6 @@ const Content = () => {
                                     region={country.region}
                                     population={country.population}
                                     flag={country.flag}
-                                    style={{marginRight: 0}}
                                 />
                             )
                         })}
