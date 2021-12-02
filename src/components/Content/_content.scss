@@ -4,23 +4,14 @@
     padding-bottom: 150px;
     
     .countries {
-        //display: flex;
-        //flex-wrap: wrap;
-        //align-items: center;
-        //justify-content: center;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 25%));
-        justify-items: center;
-        justify-content: space-around;
-        
-        @media(min-width: 600px) {
-            margin-top: 30px;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+
+        @media(min-width: $xxl) {
+            gap: 80px;
         }
-        
-        &.filtered {
-            justify-content: left;
-        }
-        
     }
 
     .more {

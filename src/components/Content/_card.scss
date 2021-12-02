@@ -4,78 +4,19 @@
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(#000000, 0.2);
     text-align: left;
-    margin: 15px 5px 20px 5px;
-    margin: 15px 0 20px;
     transition: .5s ease;
     overflow: hidden;
     position: relative;
     cursor: pointer;
     overflow-wrap: break-word;
-    max-width: 260px;
 
     &:hover {
         box-shadow: 0 0 40px -10px;
         transform: translateY(-10px);
     }
 
-    &:first-child {
-        margin-top: 35px;
-
-        @media(min-width: 600px) {
-            margin-top: 15px;
-        }
-
-        @media(min-width: 740px) {
-            margin-top: 40px;
-        }
-    }
-
-    
-    
-    @media (min-width: 740px) {
-        margin: 40px 5px;
-    }
-/*
-    @media(min-width: $md) {
-        //margin: 40px 10px;
-    }
-
-    @media(min-width: 800px) {
-        //margin: 40px 20px;
-    }
-
-    @media(min-width: $lg) {
-        //margin: 40px 0;
-    }
-*/
-    @media(min-width: 1160px) {
-        margin: 40px 10px;
-    }
-
-    @media(min-width: 1346px) {
-        margin: 40px 7px;
-
-        &:nth-child(4n) {
-            justify-self: right;
-        }
-    
-        &:nth-child(4n - 3) {
-            justify-self: left;
-        }
-    
-        &:nth-child(4n - 2),
-        &:nth-child(4n - 1) {
-            justify-self: center;
-        }
-    }   
-/*
-    @media(min-width: $xxl) {
-        margin: 35px 40px;
-    }
-*/
     .img-container {
         height: 160px;
-        width: 260px;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
         border-bottom: 1px solid rgba(#000000, .1);
@@ -83,7 +24,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        
+
+        img {
+            max-height: 100%;
+        }
     }
 
     h4 {

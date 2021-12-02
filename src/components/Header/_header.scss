@@ -3,7 +3,12 @@
 header {
     box-shadow: 0 10px 10px -10px rgba($color: $darkGray, $alpha: 0.2);
     position: relative;
+    margin-bottom: 20px;
 
+    @media(min-width: $md) {
+        margin-bottom: 50px;
+    }
+    
     nav {
         display: flex;
         align-items: center;
