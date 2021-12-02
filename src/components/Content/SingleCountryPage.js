@@ -9,9 +9,11 @@ const SingleCountryPage = () => {
     const countryName = useParams().name
     const [singleCountry, setSingleCountry] = useState([]);
     const [borderCountries, setBorderCountries] = useState([])
-    const history = useNavigate()
+    const navigate = useNavigate()
 
     useEffect(() => {
+        window.scrollTo(0,0)
+
         const fetchData = async () => {
             try {
                 const response = await fetch(`https://restcountries.com/v2/name/${countryName}`)
@@ -40,7 +42,7 @@ const SingleCountryPage = () => {
         <section className="single-country">
             <div className="single-country-container">
                 <div className="back-button-container">
-                    <button type="button" className="back primary" onClick={() => history(-1)}>
+                    <button type="button" className="back primary" onClick={() => window.history.back(-1)}>
                         <i className="fas fa-arrow-left"></i>
                         Back
                     </button>
@@ -118,7 +120,7 @@ const SingleCountryPage = () => {
                             {borderCountries ? borderCountries.map((country, i) => {
                                 const filteredCountry = getBorderCountryName(allCountryData, country)
                                     return (
-                                        <button className="border secondary" type="button" key={i} onClick={() => window.location = `/${filteredCountry.name}`}>
+                                        <button className="border secondary" type="button" key={i} onClick={() => navigate(`/${filteredCountry.name}`)}>
                                             {filteredCountry.name}
                                         </button>
                                     )

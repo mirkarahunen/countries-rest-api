@@ -1,0 +1,28 @@
+.spinner {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+
+    &::after {
+        content: ' ';
+        display: block;
+        width: 46px;
+        height: 46px;
+        margin: 1px;
+        border-radius: 50%;
+        animation: rotatingSpinner 1.2s linear infinite;
+    }
+
+    h4 {
+        text-align: center;
+    }
+}
+
+@keyframes rotatingSpinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

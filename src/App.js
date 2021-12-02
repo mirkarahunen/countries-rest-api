@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import './App.scss';
 import './scss/base/_fonts.scss'
 import './scss/base/_globals.scss'
@@ -10,8 +10,6 @@ import './scss/base/_buttons.scss'
 import Header from './components/Header/Header'
 import Home from './components/Home/Home'
 import SingleCountryPage from './components/Content/SingleCountryPage';
-//import Search from './components/Search/Search'
-//import Content from './components/Content/Content'
 
 import { ThemeContext } from './Contexts/ThemeContext'
 import ThemeProvider from './Contexts/ThemeContext'
@@ -23,23 +21,13 @@ const App = () => {
     const { theme, changeMode } = ThemeProvider()
     const { allCountryData, filteredCountries, searchValue, setSearchValue, setFilteredCountries, region, setRegion, fetchRegionData } = CountriesProvider()
  
-    let routes;
-
-    routes = (
-        <div className={`App ${theme}`}>
-            <Header />
-            <div className="app-container">
-                <main className={`${theme}`}>        
-                    <Routes>        
-                        <Route path="/" exact element={<Home />}  />
-                        <Route path="/:name" exact element={<SingleCountryPage />}/>
-                    </Routes>            
-                </main>
-            </div>
-            
-        </div>
+    const routes = (
+           
+        <Routes>        
+            <Route path="/" exact element={<Home />}  />
+            <Route path="/:name" exact element={<SingleCountryPage />}/>
+        </Routes>            
     )
-
 
     return (
             <>
@@ -59,8 +47,15 @@ const App = () => {
                         setRegion,
                         fetchRegionData
                     }}>
-                    <Router>
-                        {routes}
+                    <Router basename="/">
+                        <div className={`App ${theme}`}>
+                            <Header />
+                            <div className="app-container">
+                                <main className={`${theme}`}>    
+                                    {routes}            
+                                </main>
+                            </div>
+                        </div>
                     </Router>   
                 </CountriesContext.Provider>
             </ThemeContext.Provider>

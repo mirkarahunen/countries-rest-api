@@ -5,6 +5,7 @@
     box-shadow: 0 4px 8px rgba(#000000, 0.2);
     text-align: left;
     margin: 15px 5px 20px 5px;
+    margin: 15px 0 20px;
     transition: .5s ease;
     overflow: hidden;
     position: relative;
@@ -29,37 +30,60 @@
         }
     }
 
+    
+    
     @media (min-width: 740px) {
-        margin: 40px 5px 40px 5px;
+        margin: 40px 5px;
     }
-
+/*
     @media(min-width: $md) {
-        margin: 40px 10px;
+        //margin: 40px 10px;
     }
 
     @media(min-width: 800px) {
-        margin: 40px 20px;
+        //margin: 40px 20px;
     }
 
     @media(min-width: $lg) {
-        margin: 40px 0;
+        //margin: 40px 0;
     }
-
-    @media(min-width: 1100px) {
+*/
+    @media(min-width: 1160px) {
         margin: 40px 10px;
     }
 
-    @media(min-width: 1230px) {
-        margin: 35px 0;
-    }
+    @media(min-width: 1346px) {
+        margin: 40px 7px;
 
-    img {
+        &:nth-child(4n) {
+            justify-self: right;
+        }
+    
+        &:nth-child(4n - 3) {
+            justify-self: left;
+        }
+    
+        &:nth-child(4n - 2),
+        &:nth-child(4n - 1) {
+            justify-self: center;
+        }
+    }   
+/*
+    @media(min-width: $xxl) {
+        margin: 35px 40px;
+    }
+*/
+    .img-container {
         height: 160px;
-        object-fit: cover;
         width: 260px;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
         border-bottom: 1px solid rgba(#000000, .1);
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
     }
 
     h4 {
