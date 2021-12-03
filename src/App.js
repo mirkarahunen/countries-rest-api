@@ -14,23 +14,23 @@ import SingleCountryPage from './components/Content/SingleCountryPage';
 import { ThemeContext } from './Contexts/ThemeContext'
 import ThemeProvider from './Contexts/ThemeContext'
 
-import { CountriesContext } from './Contexts/CountriesContext';
+//import CountriesProvider from './Contexts/CountriesContext';
 import CountriesProvider from './Contexts/CountriesContext';
 
 const App = () => {
     const { theme, changeMode } = ThemeProvider()
-    const { allCountryData, filteredCountries, searchValue, setSearchValue, fetchAllData, setFilteredCountries, region, setRegion, fetchRegionData, searchedCountries, noMatches, searchCountry } = CountriesProvider()
+    //const { allCountryData, fetchAllData } = CountriesProvider()
     const routes = (
         <Routes>        
             <Route path="/" exact element={<Home />}  />
-            <Route path="/:name" exact element={<SingleCountryPage data={allCountryData}/>}/>
+            <Route path="/:name" exact element={<SingleCountryPage/>}/>
         </Routes>            
     )
-
+/*
     useCallback(() => {
         fetchAllData()
     }, [fetchAllData])
-
+*/
     return (
             <>
             <ThemeContext.Provider 
@@ -38,20 +38,7 @@ const App = () => {
                 theme, 
                 changeMode
             }}>
-                <CountriesContext.Provider 
-                    value={{ 
-                        allCountryData, 
-                        filteredCountries, 
-                        searchValue, 
-                        setSearchValue, 
-                        setFilteredCountries, 
-                        region, 
-                        setRegion,
-                        fetchRegionData,
-                        searchCountry,
-                        searchedCountries,
-                        noMatches
-                    }}>
+                <CountriesProvider>
                     <Router basename="/">
                         <div className={`App ${theme}`}>
                             <Header />
@@ -62,7 +49,7 @@ const App = () => {
                             </div>
                         </div>
                     </Router>   
-                </CountriesContext.Provider>
+                </CountriesProvider> 
             </ThemeContext.Provider>
         </>
     );

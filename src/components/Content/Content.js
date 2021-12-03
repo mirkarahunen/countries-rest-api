@@ -51,7 +51,7 @@ const Content = () => {
             setItems(newItems)
             setLoader(false)
             sessionStorage.setItem("countries", JSON.stringify(newItems))
-        }, 2000)
+        }, 500)
 
         if(items.length === fullLength) {
             setHasMore(false)

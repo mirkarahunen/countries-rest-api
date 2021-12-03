@@ -4,6 +4,7 @@ import './_singleCountryPage.scss'
 
 
 const SingleCountryPage = (props) => {
+    console.log(props);
     const countryName = useParams().name
     const [singleCountry, setSingleCountry] = useState([]);
     const [borderCountries, setBorderCountries] = useState([])
@@ -129,7 +130,6 @@ const SingleCountryPage = (props) => {
                         </p>
                         <div className="border-buttons">
                             {borderCountries ? borderCountries.map((country, i) => {
-                                //const filteredCountry = getBorderCountryName(country)
                                     return (
                                         <button className="border secondary" type="button" key={i} onClick={() => navigate(`/${borderCountries.name}`)}>
                                             {country.name}

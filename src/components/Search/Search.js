@@ -11,7 +11,6 @@ const Search = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania", "All"];
     const [buttonText, setButtonText] = useState("")
-    //const [noMatches, setNoMatches] = useState(false)
   
     const handleSelect = (e) => {
         const data = e.target.value
@@ -30,7 +29,7 @@ const Search = () => {
             {/*  ---- INPUT SEARCH ---- */}
             <div className="input">
                 <i className={`fas fa-search ${themes.theme}`}></i>
-                <input className={`${themes.theme}`} type="text" value={themes.setSearchValue} onChange={countries.searchCountry} placeholder="Search for a country..." />
+                <input className={`${themes.theme}`} type="text" value={countries.SearchValue} onChange={countries.searchCountry} placeholder="Search for a country..." />
             </div>
             
             {/* ---- FILTER DROPDOWN ---- */}

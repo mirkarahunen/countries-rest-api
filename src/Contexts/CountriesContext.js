@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useState, useEffect } from 'react'
 
 export const CountriesContext = createContext({
   allCountryData: [],
@@ -15,11 +15,10 @@ export const CountriesContext = createContext({
   setSearchedCountries: () => {},
   setNoMatches: () => {},
   searchedCountries: [],
-  noMatches: false,
-  fetchAllData: () => {}
+  noMatches: false
 })
 
-const CountriesProvider = () => {
+const CountriesProvider = (props) => {
     // Stores all API data to be used in an array
     const [allCountryData, setAllCountryData] = useState([]);
 
@@ -61,6 +60,9 @@ const CountriesProvider = () => {
       }
   }
 
+  
+
+    useEffect(() => {
       const fetchAllData = async () => {
           try {
               const response = await fetch('https://restcountries.com/v2/all')
@@ -75,11 +77,33 @@ const CountriesProvider = () => {
               
           } catch (error) {}
       }
+      
+      fetchAllData()
+  }, [])
 
-
+  return (
+    <CountriesContext.Provider 
+        value={{ 
+            allCountryData, 
+            filteredCountries, 
+            searchValue, 
+            setSearchValue, 
+            setFilteredCountries, 
+            region, 
+            setRegion,
+            fetchRegionData,
+            searchCountry,
+            searchedCountries,
+            noMatches
+        }}>
+          {props.children}
+    </CountriesContext.Provider>
+  )
+/*
     return { allCountryData, filteredCountries, searchValue, 
             setSearchValue, setFilteredCountries, region, setRegion, 
-            fetchRegionData, noMatches, searchedCountries, searchCountry, fetchAllData }
+            fetchRegionData, noMatches, searchedCountries, searchCountry}
+*/
   }
 
   export default CountriesProvider
