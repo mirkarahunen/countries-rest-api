@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState } from 'react'
 
 export const CountriesContext = createContext({
   allCountryData: [],
@@ -11,7 +11,12 @@ export const CountriesContext = createContext({
   setRegion: () => {},
   fetchRegionData: () => {},
   fetchSingleCountryData: () => {},
-  setSingleCountry: () => {}
+  setSingleCountry: () => {},
+  setSearchedCountries: () => {},
+  setNoMatches: () => {},
+  searchedCountries: [],
+  noMatches: false,
+  fetchAllData: () => {}
 })
 
 const CountriesProvider = () => {
@@ -27,8 +32,8 @@ const CountriesProvider = () => {
     // Values for search user controls
     const [searchValue, setSearchValue] = useState("");
 
-    
-
+    const [searchedCountries, setSearchedCountries] = useState([]);
+    const [noMatches, setNoMatches] = useState(false)
 
     const fetchRegionData = async (value) => {
       try {
@@ -43,8 +48,19 @@ const CountriesProvider = () => {
       } catch (error) {}
     }
 
+    const searchCountry = (e) => {
+      setSearchValue(e.target.value);
+      const filtered = allCountryData.filter(country => country.name.toLowerCase().includes(searchValue.toLowerCase()));
+      setSearchedCountries(filtered)
+      if(e.target.value === "") return setSearchedCountries(0)
+      
+      if(filtered.length === 0) {
+        setNoMatches(true)
+      } else {
+        setNoMatches(false)
+      }
+  }
 
-    useEffect(() => {
       const fetchAllData = async () => {
           try {
               const response = await fetch('https://restcountries.com/v2/all')
@@ -55,15 +71,15 @@ const CountriesProvider = () => {
               }
               setAllCountryData(responseData)
               sessionStorage.setItem("countries", JSON.stringify(responseData.slice(0, 12)))
+
+              
           } catch (error) {}
       }
-      fetchAllData()
-      
-  }, [])
+
 
     return { allCountryData, filteredCountries, searchValue, 
             setSearchValue, setFilteredCountries, region, setRegion, 
-            fetchRegionData }
+            fetchRegionData, noMatches, searchedCountries, searchCountry, fetchAllData }
   }
 
   export default CountriesProvider

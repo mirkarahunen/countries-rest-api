@@ -41,7 +41,7 @@ video {
 
 button {
     border: 2px solid transparent;
-    background-color: transparent;
+    //background-color: transparent;
     appearance: none;
     cursor: pointer;
 
@@ -53,6 +53,7 @@ button {
 input:focus {
     outline: none;
 }
+
 
 nav,
 section {
@@ -91,13 +92,13 @@ section {
 
     .option,
     .select,
-    input {
-        box-shadow: 1px 1px 5px rgba($darkGray, 0.6);
+    input[type=text] {
+        box-shadow: 1px 1px 5px rgba($darkGray, 0.2);
     }
 
     .option,
     .select,
-    input,
+    input[type=text],
     .filter-options {
         background-color: $white;
     }
@@ -105,6 +106,10 @@ section {
     .mode {
         color: $veryDarkBlueText;
         background-color: $white;   
+    }
+
+    button {
+        background-color: $white;
     }
 
     i {
@@ -128,7 +133,7 @@ section {
     background-color: $veryDarkBlue;
     transition: all .5s ease;
 
-    input,
+    input[type=text],
     .option,
     .filter-options,
     .select,

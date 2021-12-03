@@ -19,7 +19,7 @@ const Card = (props) => {
 
             <h4>{props.name}</h4>
             <div className="country-details">
-                <span><strong>Population: </strong>{props.population ? props.population : "0"}</span>
+                <span><strong>Population: </strong>{props.population ? props.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "0"}</span>
                 <span><strong>Region: </strong>{props.region ? props.region : "No region given"}</span>
                 <span><strong>Capital: </strong>{props.capital ? props.capital : "No capital given"}</span>
             </div>

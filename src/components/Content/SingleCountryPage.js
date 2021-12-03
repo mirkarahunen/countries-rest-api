@@ -1,48 +1,59 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { CountriesContext } from '../../Contexts/CountriesContext'
 import './_singleCountryPage.scss'
 
 
-const SingleCountryPage = () => {
-    const {allCountryData} = useContext(CountriesContext)
+const SingleCountryPage = (props) => {
     const countryName = useParams().name
     const [singleCountry, setSingleCountry] = useState([]);
     const [borderCountries, setBorderCountries] = useState([])
     const navigate = useNavigate()
 
+
     useEffect(() => {
-        window.scrollTo(0,0)
 
         const fetchData = async () => {
             try {
-                const response = await fetch(`https://restcountries.com/v2/name/${countryName}`)
-                const responseData = await response.json()
+                const responseName = await fetch(`https://restcountries.com/v2/name/${countryName}?fullText=true`)
+                const responseData = await responseName.json()
 
-                if(!response.ok) {
+                const borders = responseData[0].borders
+                
+                const responseCode = await fetch(`https://restcountries.com/v2/alpha?codes=${borders.map(item => item.toLowerCase())}`)
+                const responseDataCode = await responseCode.json()
+
+                if(!responseName.ok) {
                   throw new Error(responseData.message)
                 }
                 setSingleCountry(responseData[0])
-                setBorderCountries(responseData[0].borders)
-                
-              } catch (error) {}                 
+                setBorderCountries(responseDataCode)
+                //console.log(responseDataCode);
+              } catch (error) {
+                  console.log(error);
+              }                 
         }
         fetchData()
 
-    }, [allCountryData, countryName])
-
-    const getBorderCountryName = (countries, code) => {
-        const matchingCountry = countries.find(country => {
+    }, [countryName])
+/*
+    const getBorderCountryName = (code) => {
+        const matchingCountry = props.data.find(country => {
           return country.alpha3Code === code;
         })
         return matchingCountry || [];
+    }
+*/
+
+    const goBack = () => {
+     
+ 
     }
 
     return (
         <section className="single-country">
             <div className="single-country-container">
                 <div className="back-button-container">
-                    <button type="button" className="back primary" onClick={() => window.history.back(-1)}>
+                    <button type="button" className="back primary" onClick={goBack}> {/*window.history.back(-1)*/}
                         <i className="fas fa-arrow-left"></i>
                         Back
                     </button>
@@ -64,7 +75,7 @@ const SingleCountryPage = () => {
                             </p>
                             <p>
                                 <strong>Population: </strong>
-                                {singleCountry.population ? singleCountry.population : "No Population Given"}
+                                {singleCountry.population ? singleCountry.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "No Population Given"}
                             </p>
                             <p>
                                 <strong>Region: </strong>
@@ -118,10 +129,10 @@ const SingleCountryPage = () => {
                         </p>
                         <div className="border-buttons">
                             {borderCountries ? borderCountries.map((country, i) => {
-                                const filteredCountry = getBorderCountryName(allCountryData, country)
+                                //const filteredCountry = getBorderCountryName(country)
                                     return (
-                                        <button className="border secondary" type="button" key={i} onClick={() => navigate(`/${filteredCountry.name}`)}>
-                                            {filteredCountry.name}
+                                        <button className="border secondary" type="button" key={i} onClick={() => navigate(`/${borderCountries.name}`)}>
+                                            {country.name}
                                         </button>
                                     )
                                 }) : "No border countries"}

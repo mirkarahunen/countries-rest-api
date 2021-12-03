@@ -10,8 +10,8 @@ const Search = () => {
     const countries = useContext(CountriesContext)
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania", "All"];
-    const data = countries.allCountryData
     const [buttonText, setButtonText] = useState("")
+    //const [noMatches, setNoMatches] = useState(false)
   
     const handleSelect = (e) => {
         const data = e.target.value
@@ -21,16 +21,8 @@ const Search = () => {
         document.querySelector(".input input").value = ""
     }
 
-   
     // Trigger dropdown menu
     const handleSelectClick = () => !dropdownOpen ? setDropdownOpen(true) : setDropdownOpen(false)
-
-    const searchCountry = (e) => {
-        countries.setSearchValue(e.target.value);
-        const filtered = data.filter(country => country.name.toLowerCase().includes(countries.searchValue.toLowerCase()));
-        countries.setFilteredCountries(filtered)
-        if(e.target.value === "") return countries.setFilteredCountries(0)
-    }
 
     
     return (
@@ -38,7 +30,7 @@ const Search = () => {
             {/*  ---- INPUT SEARCH ---- */}
             <div className="input">
                 <i className={`fas fa-search ${themes.theme}`}></i>
-                <input className={`${themes.theme}`} type="text" value={themes.setSearchValue} onChange={searchCountry} placeholder="Search for country..." />
+                <input className={`${themes.theme}`} type="text" value={themes.setSearchValue} onChange={countries.searchCountry} placeholder="Search for a country..." />
             </div>
             
             {/* ---- FILTER DROPDOWN ---- */}
@@ -53,7 +45,7 @@ const Search = () => {
                         {regions.map((item, i) => {
                             return (
                                 <div className="filter-option" key={i} onClick={handleSelect}>
-                                    <input value={item} name={item} type="text" disabled/>
+                                    <input value={item} name={item} type="submit" />
                                 </div>
                             )
                         })}

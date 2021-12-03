@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import './App.scss';
 import './scss/base/_fonts.scss'
@@ -19,15 +19,17 @@ import CountriesProvider from './Contexts/CountriesContext';
 
 const App = () => {
     const { theme, changeMode } = ThemeProvider()
-    const { allCountryData, filteredCountries, searchValue, setSearchValue, setFilteredCountries, region, setRegion, fetchRegionData } = CountriesProvider()
- 
+    const { allCountryData, filteredCountries, searchValue, setSearchValue, fetchAllData, setFilteredCountries, region, setRegion, fetchRegionData, searchedCountries, noMatches, searchCountry } = CountriesProvider()
     const routes = (
-           
         <Routes>        
             <Route path="/" exact element={<Home />}  />
-            <Route path="/:name" exact element={<SingleCountryPage />}/>
+            <Route path="/:name" exact element={<SingleCountryPage data={allCountryData}/>}/>
         </Routes>            
     )
+
+    useCallback(() => {
+        fetchAllData()
+    }, [fetchAllData])
 
     return (
             <>
@@ -45,7 +47,10 @@ const App = () => {
                         setFilteredCountries, 
                         region, 
                         setRegion,
-                        fetchRegionData
+                        fetchRegionData,
+                        searchCountry,
+                        searchedCountries,
+                        noMatches
                     }}>
                     <Router basename="/">
                         <div className={`App ${theme}`}>
