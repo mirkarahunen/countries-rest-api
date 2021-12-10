@@ -15,7 +15,7 @@ export const CountriesContext = createContext({
   setSearchedCountries: () => {},
   setNoMatches: () => {},
   searchedCountries: [],
-  noMatches: false
+  noMatches: false,
 })
 
 const CountriesProvider = (props) => {
@@ -46,19 +46,22 @@ const CountriesProvider = (props) => {
         
       } catch (error) {}
     }
+    
 
-    const searchCountry = (e) => {
-      setSearchValue(e.target.value);
+    useEffect(() => {
+      console.log(searchValue);
       const filtered = allCountryData.filter(country => country.name.toLowerCase().includes(searchValue.toLowerCase()));
       setSearchedCountries(filtered)
-      if(e.target.value === "") return setSearchedCountries(0)
+      if(searchValue === "") return setSearchedCountries(0)
       
       if(filtered.length === 0) {
         setNoMatches(true)
       } else {
         setNoMatches(false)
       }
-  }
+    }, [searchValue, allCountryData])
+  
+
 
   
 
@@ -79,6 +82,7 @@ const CountriesProvider = (props) => {
       }
       
       fetchAllData()
+      
   }, [])
 
   return (
@@ -92,7 +96,7 @@ const CountriesProvider = (props) => {
             region, 
             setRegion,
             fetchRegionData,
-            searchCountry,
+            //searchCountry,
             searchedCountries,
             noMatches
         }}>

@@ -8,7 +8,7 @@ export const ThemeContext = createContext({
 
 
 
-const ThemeProvider = () => {
+const ThemeProvider = (props) => {
     const item = "theme"
     const savedItem = localStorage.getItem("theme")
     const [theme, setTheme] = useState(() => {
@@ -27,6 +27,13 @@ const ThemeProvider = () => {
         setLocalItem(item, theme) 
     }, [savedItem, theme])
 
+
+   /* return (
+        <ThemeContext.Provider value={{ theme, changeMode}}>
+            {props.children}
+        </ThemeContext.Provider>
+    )
+    */
     return { theme, changeMode }
 }
 

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import './App.scss';
 import './scss/base/_fonts.scss'
@@ -11,9 +11,8 @@ import Header from './components/Header/Header'
 import Home from './components/Home/Home'
 import SingleCountryPage from './components/Content/SingleCountryPage';
 
-import { ThemeContext } from './Contexts/ThemeContext'
 import ThemeProvider from './Contexts/ThemeContext'
-
+import { ThemeContext } from './Contexts/ThemeContext'
 //import CountriesProvider from './Contexts/CountriesContext';
 import CountriesProvider from './Contexts/CountriesContext';
 
@@ -33,11 +32,7 @@ const App = () => {
 */
     return (
             <>
-            <ThemeContext.Provider 
-                value={{ 
-                theme, 
-                changeMode
-            }}>
+            <ThemeContext.Provider value={{ theme, changeMode}}>
                 <CountriesProvider>
                     <Router basename="/">
                         <div className={`App ${theme}`}>
@@ -50,7 +45,7 @@ const App = () => {
                         </div>
                     </Router>   
                 </CountriesProvider> 
-            </ThemeContext.Provider>
+                </ThemeContext.Provider>
         </>
     );
 }

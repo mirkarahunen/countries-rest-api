@@ -29,7 +29,7 @@ const Search = () => {
             {/*  ---- INPUT SEARCH ---- */}
             <div className="input">
                 <i className={`fas fa-search ${themes.theme}`}></i>
-                <input className={`${themes.theme}`} type="text" value={countries.SearchValue} onChange={countries.searchCountry} placeholder="Search for a country..." />
+                <input className={`${themes.theme}`} type="text" value={countries.SearchValue} onChange={(e) => countries.setSearchValue(e.target.value)} placeholder="Search for a country..." />
             </div>
             
             {/* ---- FILTER DROPDOWN ---- */}
