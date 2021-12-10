@@ -28,12 +28,9 @@ const Content = () => {
     const [offset, setOffset] = useState(() => {
         return startOffset ? parseInt(startOffset) : count
     })
-
     const fullLength = countries.allCountryData.length
     const [loader, setLoader] = useState(false)
-   
     const [items, setItems] = useState([])
-
 
 
     const fetchMoreData = () => {
@@ -62,12 +59,13 @@ const Content = () => {
     useEffect(() => {
         sessionStorage.setItem("counter", JSON.stringify(offset))
         setItems(getStorage("countries"))
-        
-        //if(window.location.reload) 
-        //if(window.history.state.idx > 1) return sessionStorage.removeItem("counter")
-      
-
     }, [offset, countries.allCountryData])
+
+    useEffect(() => {
+            window.onunload = () => {
+                sessionStorage.removeItem("counter")
+            }
+        },[])
 
 
     if(countries.searchedCountries.length > 0) {

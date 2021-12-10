@@ -13,12 +13,10 @@ import SingleCountryPage from './components/Content/SingleCountryPage';
 
 import ThemeProvider from './Contexts/ThemeContext'
 import { ThemeContext } from './Contexts/ThemeContext'
-//import CountriesProvider from './Contexts/CountriesContext';
 import CountriesProvider from './Contexts/CountriesContext';
 
 const App = () => {
     const { theme, changeMode } = ThemeProvider()
-    //const { allCountryData, fetchAllData } = CountriesProvider()
     const routes = (
         <Routes>        
             <Route path="/" exact element={<Home />}  />
