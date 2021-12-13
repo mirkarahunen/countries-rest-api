@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef, useLayoutEffect } from 'react'
 import './_content.scss'
 import Card from './Card'
 import { CountriesContext } from '../../Contexts/CountriesContext'
@@ -9,6 +9,7 @@ const Content = () => {
     const countries = useContext(CountriesContext)
     const [hasMore, setHasMore] = useState(true)
     const limit = 12
+    const [scrollPosition, setScrollPosition] = useState(0);
 
     const getStorage = (key, value) => {
         let storedCountries = sessionStorage.getItem(key)
@@ -28,7 +29,7 @@ const Content = () => {
     const fullLength = countries.allCountryData.length
     const [loader, setLoader] = useState(false)
     const [items, setItems] = useState([])
-
+    const position = useRef(window.pageYOffset);
 
     const fetchMoreData = () => {
         const offsetToNumber = parseInt(offset) + 1
@@ -53,16 +54,35 @@ const Content = () => {
         }       
     }
 
+    window.addEventListener('scroll', () => {
+        setScrollPosition(window.pageYOffset)
+    })
+    
+        
+        //setScrollPosition(position);
+        useLayoutEffect(() => {
+            position.current = scrollPosition
+
+            
+        }, [scrollPosition])
+    
+
     useEffect(() => {
         sessionStorage.setItem("counter", JSON.stringify(offset))
         setItems(getStorage("countries"))
     }, [offset, countries.allCountryData])
 
     useEffect(() => {
-            window.onunload = () => {
-                sessionStorage.removeItem("counter")
-            }
-        },[])
+        window.pageYOffset = position.current
+        window.onunload = () => {
+            sessionStorage.removeItem("counter")
+        }
+        if(window.location.reload) {    
+            window.scrollTo(0,0)
+        }
+    },[])
+
+    
 
 
     if(countries.searchedCountries.length > 0) {

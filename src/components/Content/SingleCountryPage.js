@@ -4,12 +4,10 @@ import './_singleCountryPage.scss'
 
 
 const SingleCountryPage = (props) => {
-    console.log(props);
     const countryName = useParams().name
     const [singleCountry, setSingleCountry] = useState([]);
     const [borderCountries, setBorderCountries] = useState([])
     const navigate = useNavigate()
-
 
     useEffect(() => {
 
@@ -20,18 +18,20 @@ const SingleCountryPage = (props) => {
 
                 const borders = responseData[0].borders
                 
-                const responseCode = await fetch(`https://restcountries.com/v2/alpha?codes=${borders.map(item => item.toLowerCase())}`)
-                const responseDataCode = await responseCode.json()
+                if(borders) {
+                    const responseCode = await fetch(`https://restcountries.com/v2/alpha?codes=${borders.map(item => item.toLowerCase())}`)
+                    const responseDataCode = await responseCode.json()
+                    setBorderCountries(responseDataCode)
+                }
 
                 if(!responseName.ok) {
                   throw new Error(responseData.message)
                 }
+
                 setSingleCountry(responseData[0])
-                setBorderCountries(responseDataCode)
+                
                 //console.log(responseDataCode);
-              } catch (error) {
-                  console.log(error);
-              }                 
+              } catch (error) {}                 
         }
         fetchData()
 
@@ -46,8 +46,13 @@ const SingleCountryPage = (props) => {
 */
 
     const goBack = () => {
-     
- 
+        
+        //navigate(-1)
+        window.history.go(-1)
+        //const newPage = (window.history.length - window.history.length)
+        //console.log(newPage, window.history.length);
+        
+        //window.history.go(window.history.length - (window.history.length +1))
     }
 
     return (
@@ -131,7 +136,7 @@ const SingleCountryPage = (props) => {
                         <div className="border-buttons">
                             {borderCountries ? borderCountries.map((country, i) => {
                                     return (
-                                        <button className="border secondary" type="button" key={i} onClick={() => navigate(`/${borderCountries.name}`)}>
+                                        <button className="border secondary" type="button" key={i} onClick={() => navigate(`/${country.name}`)}>
                                             {country.name}
                                         </button>
                                     )
