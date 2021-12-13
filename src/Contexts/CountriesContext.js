@@ -42,14 +42,12 @@ const CountriesProvider = (props) => {
         if(!response.ok) {
           throw new Error(responseData.message)
         }
-        setFilteredCountries(responseData)
-        
+        setFilteredCountries(responseData)       
       } catch (error) {}
     }
     
-
+    
     useEffect(() => {
-      console.log(searchValue);
       const filtered = allCountryData.filter(country => country.name.toLowerCase().includes(searchValue.toLowerCase()));
       setSearchedCountries(filtered)
       if(searchValue === "") return setSearchedCountries(0)
@@ -59,11 +57,20 @@ const CountriesProvider = (props) => {
       } else {
         setNoMatches(false)
       }
-    }, [searchValue, allCountryData])
+
+      const newCountries = filteredCountries.filter(country => country.name.toLowerCase().includes(searchValue.toLowerCase()))
+      setSearchedCountries(newCountries)
+
+      if(newCountries.length === 0) {
+        setNoMatches(true)
+      } else {
+        setNoMatches(false)
+      }
+      
   
+    }, [searchValue, allCountryData, filteredCountries])
 
 
-  
 
     useEffect(() => {
       const fetchAllData = async () => {
@@ -76,8 +83,6 @@ const CountriesProvider = (props) => {
               }
               setAllCountryData(responseData)
               sessionStorage.setItem("countries", JSON.stringify(responseData.slice(0, 12)))
-
-              
           } catch (error) {}
       }
       

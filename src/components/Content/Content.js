@@ -14,11 +14,8 @@ const Content = () => {
         let storedCountries = sessionStorage.getItem(key)
         
         if(!storedCountries) {
-            //console.log(value);
             return value
         } else {
-            //console.log(storedCountries);
-            //sessionStorage.setItem("countries", JSON.stringify(storedCountries))
             return JSON.parse(storedCountries)
         }
     }
@@ -104,6 +101,31 @@ const Content = () => {
             </section> 
         )
     }
+
+    else if(countries.filteredCountries.length > 0) {
+        return (
+            <section className="countries-content">
+                <div className="container">
+                    <div className="countries">
+                        {countries.filteredCountries.map((country, i) => {
+                            
+                            return (
+                                <Card 
+                                    name={country.name}
+                                    key={i}
+                                    capital={country.capital}
+                                    region={country.region}
+                                    population={country.population}
+                                    flag={country.flag}
+                                    numericCode={country.numericCode}
+                                />
+                            )
+                        })}
+                    </div>
+                </div>
+            </section> 
+        )
+    } 
     
     else {
         return (
