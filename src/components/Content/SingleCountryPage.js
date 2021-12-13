@@ -36,30 +36,17 @@ const SingleCountryPage = (props) => {
         fetchData()
 
     }, [countryName])
-/*
-    const getBorderCountryName = (code) => {
-        const matchingCountry = props.data.find(country => {
-          return country.alpha3Code === code;
-        })
-        return matchingCountry || [];
-    }
-*/
 
     const goBack = () => {
-        
-        //navigate(-1)
-        window.history.go(-1)
-        //const newPage = (window.history.length - window.history.length)
-        //console.log(newPage, window.history.length);
-        
-        //window.history.go(window.history.length - (window.history.length +1))
+        const amount = Number(window.history.length - 2)
+        navigate(-amount)
     }
 
     return (
         <section className="single-country">
             <div className="single-country-container">
                 <div className="back-button-container">
-                    <button type="button" className="back primary" onClick={goBack}> {/*window.history.back(-1)*/}
+                    <button type="button" className="back primary" onClick={goBack}>
                         <i className="fas fa-arrow-left"></i>
                         Back
                     </button>

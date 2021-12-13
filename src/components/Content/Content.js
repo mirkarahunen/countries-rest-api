@@ -60,11 +60,9 @@ const Content = () => {
     
         
         //setScrollPosition(position);
-        useLayoutEffect(() => {
-            position.current = scrollPosition
-
-            
-        }, [scrollPosition])
+    useLayoutEffect(() => {
+        position.current = scrollPosition
+    }, [scrollPosition])
     
 
     useEffect(() => {
@@ -77,12 +75,9 @@ const Content = () => {
         window.onunload = () => {
             sessionStorage.removeItem("counter")
         }
-        if(window.location.reload) {    
-            window.scrollTo(0,0)
-        }
-    },[])
-
-    
+        if(sessionStorage.getItem("counter") === "0") window.scrollTo(0,0)
+            
+    },[items])
 
 
     if(countries.searchedCountries.length > 0) {
