@@ -13,23 +13,32 @@ const Search = () => {
     const [buttonText, setButtonText] = useState("")
   
     const handleSelect = (e) => {
+        sessionStorage.setItem("scroll", 0)
         const data = e.target.value
         countries.fetchRegionData(data.toLowerCase());
         setButtonText(data)
         setDropdownOpen(false)
-        document.querySelector(".input input").value = ""
+        //document.querySelector(".input input").value = ""
+
+        if(data === "All") {
+            sessionStorage.removeItem("filtered")
+        }
     }
 
     // Trigger dropdown menu
     const handleSelectClick = () => !dropdownOpen ? setDropdownOpen(true) : setDropdownOpen(false)
 
+    const searching = (e) => {
+        sessionStorage.setItem("scroll", 0)
+        countries.setSearchValue(e.target.value)
+    }
     
     return (
         <section className={`search ${themes.theme}`}>
             {/*  ---- INPUT SEARCH ---- */}
             <div className="input">
                 <i className={`fas fa-search ${themes.theme}`}></i>
-                <input className={`${themes.theme}`} type="text" value={countries.SearchValue} onChange={(e) => countries.setSearchValue(e.target.value)} placeholder="Search for a country..." />
+                <input className={`${themes.theme}`} type="text" value={countries.SearchValue} onChange={searching} placeholder="Search for a country..." />
             </div>
             
             {/* ---- FILTER DROPDOWN ---- */}

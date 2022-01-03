@@ -3,14 +3,15 @@ import { useParams, useNavigate } from 'react-router-dom'
 import './_singleCountryPage.scss'
 
 
-const SingleCountryPage = (props) => {
+const SingleCountryPage = () => {
     const countryName = useParams().name
     const [singleCountry, setSingleCountry] = useState([]);
     const [borderCountries, setBorderCountries] = useState([])
     const navigate = useNavigate()
+    
 
     useEffect(() => {
-
+        
         const fetchData = async () => {
             try {
                 const responseName = await fetch(`https://restcountries.com/v2/name/${countryName}?fullText=true`)
@@ -38,8 +39,7 @@ const SingleCountryPage = (props) => {
     }, [countryName])
 
     const goBack = () => {
-        const amount = Number(window.history.length - 2)
-        navigate(-amount)
+        navigate("/")
     }
 
     return (

@@ -8,6 +8,7 @@ const Card = (props) => {
     const navigate = useNavigate()
 
     const goToCountry = () => {
+        sessionStorage.setItem("scroll", window.pageYOffset)
         navigate(`/${props.name}`)
     }
 

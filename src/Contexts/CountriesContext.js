@@ -16,6 +16,7 @@ export const CountriesContext = createContext({
   setNoMatches: () => {},
   searchedCountries: [],
   noMatches: false,
+  fetchAllData: () => {}
 })
 
 const CountriesProvider = (props) => {
@@ -35,44 +36,60 @@ const CountriesProvider = (props) => {
     const [noMatches, setNoMatches] = useState(false)
 
     const fetchRegionData = async (value) => {
-      try {
-        const response = await fetch(`https://restcountries.com/v2/region/${value}`)
-        const responseData = await response.json()
-
-        if(!response.ok) {
-          throw new Error(responseData.message)
+      if(value === "all") {
+        setFilteredCountries([])
+      } else {
+          try {
+            const response = await fetch(`https://restcountries.com/v2/region/${value}`)
+            const responseData = await response.json()
+        
+            sessionStorage.setItem("filtered", JSON.stringify(responseData.slice(0, 12)))
+            
+            if(!response.ok) {
+              throw new Error(responseData.message)
+            }
+              setFilteredCountries(responseData)
+              
+            } catch (error) {}
         }
-        setFilteredCountries(responseData)       
-      } catch (error) {}
     }
     
     
     useEffect(() => {
-      const filtered = allCountryData.filter(country => country.name.toLowerCase().includes(searchValue.toLowerCase()));
-      setSearchedCountries(filtered)
-      if(searchValue === "") return setSearchedCountries(0)
       
-      if(filtered.length === 0) {
-        setNoMatches(true)
+      if(searchValue.length > 0) {
+        const filtered = allCountryData.filter(country => country.name.toLowerCase().includes(searchValue.toLowerCase()));
+        sessionStorage.setItem("scroll", 0)
+        setSearchedCountries(filtered)
+        
+        if(filtered.length === 0) {
+          setNoMatches(true)
+        } else {
+          setNoMatches(false)
+        }
+  
+        if(filteredCountries.length > 0) {
+          sessionStorage.setItem("scroll", 0)
+          const newCountries = filteredCountries.filter(country => country.name.toLowerCase().includes(searchValue.toLowerCase()))
+          
+            setSearchedCountries(newCountries)
+        
+            if(newCountries.length === 0) {
+                setNoMatches(true)
+            } else {
+                setNoMatches(false)
+            }
+        } 
       } else {
-        setNoMatches(false)
-      }
-
-      const newCountries = filteredCountries.filter(country => country.name.toLowerCase().includes(searchValue.toLowerCase()))
-      setSearchedCountries(newCountries)
-
-      if(newCountries.length === 0) {
-        setNoMatches(true)
-      } else {
-        setNoMatches(false)
+        setSearchedCountries(0)
       }
       
   
     }, [searchValue, allCountryData, filteredCountries])
 
+    
 
-
-    useEffect(() => {
+   
       const fetchAllData = async () => {
           try {
               const response = await fetch('https://restcountries.com/v2/all')
@@ -86,6 +103,7 @@ const CountriesProvider = (props) => {
           } catch (error) {}
       }
       
+      useEffect(() => {
       fetchAllData()
       
   }, [])
@@ -103,16 +121,12 @@ const CountriesProvider = (props) => {
             fetchRegionData,
             //searchCountry,
             searchedCountries,
-            noMatches
+            noMatches,
+            fetchAllData
         }}>
           {props.children}
     </CountriesContext.Provider>
   )
-/*
-    return { allCountryData, filteredCountries, searchValue, 
-            setSearchValue, setFilteredCountries, region, setRegion, 
-            fetchRegionData, noMatches, searchedCountries, searchCountry}
-*/
-  }
+}
 
   export default CountriesProvider
