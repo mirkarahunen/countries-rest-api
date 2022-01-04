@@ -23,13 +23,13 @@
     }
 
     &:before {
-        bottom: 0rem;
-        right: 0rem;
+        bottom: 0;
+        right: 0;
     }
 
     &:after {
-        top: 0rem;
-        left: 0rem;
+        top: 0;
+        left: 0;
     }
 
  
@@ -37,14 +37,14 @@
         //box-shadow: 0 0 40px -10px;
         //transform: translateY(-10px);
         &:before {
-            bottom: 2rem;
-            right: 2rem;
+            bottom: 20px;
+            right: 20px;
             box-shadow: 0 0 40px -30px;
         }
           
         &:after {
-            top: 2rem;
-            left: 2rem;
+            top: 20px;
+            left: 20px;
             box-shadow: 0 0 40px -30px;
         }
     }
