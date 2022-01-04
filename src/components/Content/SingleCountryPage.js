@@ -49,6 +49,10 @@ const SingleCountryPage = () => {
                     <button type="button" className="back primary" onClick={goBack}>
                         <i className="fas fa-arrow-left"></i>
                         Back
+                        <span className='line-1'></span>
+                        <span className='line-2'></span>
+                        <span className='line-3'></span>
+                        <span className='line-4'></span>
                     </button>
                 </div>
                 

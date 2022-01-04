@@ -2,7 +2,8 @@ import React, { useContext, useState, useEffect } from 'react'
 import './_content.scss'
 import Card from './Card'
 import { CountriesContext } from '../../Contexts/CountriesContext'
-import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
+//import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
+import Loading from '../LoadingSpinner/Loading'
 
 
 const Content = () => {
@@ -51,7 +52,7 @@ const Content = () => {
             setItems(newItems)
             setLoader(false)
             sessionStorage.setItem("countries", JSON.stringify(newItems))
-        }, 500)
+        }, 1000)
 
         if(items.length === fullLength) {
             setHasMore(false)
@@ -76,7 +77,7 @@ const Content = () => {
             setFilteredItems(newItems)
             setLoader(false)
             sessionStorage.setItem("filtered", JSON.stringify(newItems))
-        }, 500)
+        }, 1000)
 
         if(filteredItems.length === fullLengthFiltered) {
             setHasMore(false)
@@ -171,12 +172,13 @@ const Content = () => {
                         })}
                     </div>
                     <div className="more"> 
+
                         {!loader ? 
                             <button type="button" className="more primary" onClick={fetchMoreFilteredData}>
                                 Load more
                             </button> 
                         : 
-                            <LoadingSpinner/>}
+                            <Loading/>}
                         {!hasMore && <h4 style={{ textAlign: "center" }}>
                             Yay! You've seen it all
                         </h4>}                
@@ -206,12 +208,17 @@ const Content = () => {
                         })}
                     </div>
                     <div className="more"> 
+                    
                         {!loader ? 
                             <button type="button" className="more primary" onClick={fetchMoreData}>
                                 Load more
+                                <span className='line-1'></span>
+                                <span className='line-2'></span>
+                                <span className='line-3'></span>
+                                <span className='line-4'></span>
                             </button> 
                         : 
-                            <LoadingSpinner/>}
+                            <Loading/>}
                         {!hasMore && <h4 style={{ textAlign: "center" }}>
                             Yay! You've seen it all
                         </h4>}                

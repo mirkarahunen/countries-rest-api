@@ -5,6 +5,7 @@
     position: relative;
     margin-top: 35px;
     width: 200px;
+    z-index: 200;
 
     @media(min-width: $md) {
         margin-top: 0;
@@ -66,10 +67,10 @@
 
         .filter-option {
             
-            padding: 0 0 5px 25px;
+            //padding: 0 0 5px 25px;
             
             @media(min-width: $md) {
-                padding: 5px 0 5px 15px;
+                //padding: 5px 0 5px 15px;
             }
             
             input[type=submit] {
@@ -83,6 +84,7 @@
 
                 @media(min-width: $md) {
                     font-size: 14px;
+                    padding: 5px 0 5px 25px;
                 }
             }
 

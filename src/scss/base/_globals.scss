@@ -19,7 +19,7 @@ body {
 main {
     width: 100%;
     overflow: hidden; 
-    background-color: $veryLightGray;
+    //background-color: $veryLightGray;
     color: $veryDarkBlueText;
     
 }
@@ -120,12 +120,18 @@ section {
 
     .card {
         background-color: $white;
-    }
 
+        &:before, 
+        &:after {
+            background-color: rgba(0,0,0,.1);
+        }
+    }
+/*
     .spinner::after {
         border: 5px solid $darkBlue;
         border-color: $darkBlue transparent $darkBlue transparent;
     }
+    */
 }
 
 .Dark {
@@ -156,11 +162,16 @@ section {
     .card {
         color: $white;
         background-color: $darkBlue;
-    }
 
+        &:before, 
+        &:after {
+            background-color: rgba(white,.2);
+        }
+    }
+/*
     .spinner::after {
         border: 5px solid $white;
         border-color: $white transparent $white transparent;
     }
-
+*/
 }

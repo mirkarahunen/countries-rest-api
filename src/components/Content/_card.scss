@@ -5,14 +5,48 @@
     box-shadow: 0 4px 8px rgba(#000000, 0.2);
     text-align: left;
     transition: .5s ease;
-    overflow: hidden;
     position: relative;
     cursor: pointer;
     overflow-wrap: break-word;
+    
 
+    &:before, 
+    &:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transition: .3s ease;
+        z-index: -1;
+        border-radius: 5px;
+    
+    }
+
+    &:before {
+        bottom: 0rem;
+        right: 0rem;
+    }
+
+    &:after {
+        top: 0rem;
+        left: 0rem;
+    }
+
+ 
     &:hover {
-        box-shadow: 0 0 40px -10px;
-        transform: translateY(-10px);
+        //box-shadow: 0 0 40px -10px;
+        //transform: translateY(-10px);
+        &:before {
+            bottom: 2rem;
+            right: 2rem;
+            box-shadow: 0 0 40px -30px;
+        }
+          
+        &:after {
+            top: 2rem;
+            left: 2rem;
+            box-shadow: 0 0 40px -30px;
+        }
     }
 
     .img-container {
