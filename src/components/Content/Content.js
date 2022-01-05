@@ -157,7 +157,7 @@ const Content = () => {
             <section className="countries-content">
                 <div className="container">
                     <div className="countries">
-                        {filteredItems.map((country, i) => {
+                        {filteredItems && filteredItems.map((country, i) => {
                             return (
                                 <Card 
                                     name={country.name}
