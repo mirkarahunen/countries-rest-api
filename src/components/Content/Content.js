@@ -89,7 +89,6 @@ const Content = () => {
         let scroll = sessionStorage.getItem("scroll")
         
         window.scrollTo(0, scroll)
-        console.log(scroll);
 
     })
     
