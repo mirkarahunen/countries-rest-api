@@ -98,7 +98,7 @@
     0% {
         //height: 0;
         background-color: black;
-        transform: scaleY(1);
+        //transform: scaleY(1);
         bottom: 0;
     }
 
@@ -148,7 +148,7 @@
     0% {
         background-color: black;
         //height: 100%;
-        transform: scaleY(1);
+        //transform: scaleY(1);
         top: 0;
     }
 
@@ -179,11 +179,13 @@
     transform: scaleX(0);
     right: 0;
   }
+
   55% {
     //width: 100%;
     transform: scaleX(1);
     right: 0;
   }
+  
   100% {
     //width: 0;
     background-color: black;
